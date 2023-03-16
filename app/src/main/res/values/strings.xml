@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">StoryMessage</string>
-
-
     <string name="edt_title_email">Email</string>
+    <string name="edt_title_password">Password</string>
 </resources>
