@@ -1,7 +1,8 @@
-package com.rivaldofez.storymessage.splash
+package com.rivaldofez.storymessage
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.rivaldofez.storymessage.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
