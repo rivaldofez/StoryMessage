@@ -9,7 +9,9 @@ import com.bumptech.glide.Glide
 import com.rivaldofez.storymessage.BaseActivity
 import com.rivaldofez.storymessage.R
 import com.rivaldofez.storymessage.databinding.ActivitySplashBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class SplashActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivitySplashBinding
