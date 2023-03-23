@@ -6,12 +6,11 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
+import javax.inject.Inject
 
-class AuthenticationRepository constructor(
+class AuthenticationRepository @Inject constructor(
     private val apiService: ApiService,
     private val authenticationLocalDataSource: AuthenticationLocalDataSource) {
-
-
 
     suspend fun userLogin(email: String, password: String): Flow<Result<LoginResponse>> = flow {
         try {

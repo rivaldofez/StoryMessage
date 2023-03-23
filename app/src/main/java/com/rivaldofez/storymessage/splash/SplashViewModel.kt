@@ -2,8 +2,11 @@ package com.rivaldofez.storymessage.splash
 
 import androidx.lifecycle.ViewModel
 import com.rivaldofez.storymessage.data.remote.AuthenticationRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
+import javax.inject.Inject
 
-class SplashViewModel constructor(private val authenticationRepository: AuthenticationRepository): ViewModel() {
+@HiltViewModel
+class SplashViewModel @Inject constructor(private val authenticationRepository: AuthenticationRepository): ViewModel() {
     fun getAuthenticationToken(): Flow<String?> = authenticationRepository.getAuthenticationToken()
 }
