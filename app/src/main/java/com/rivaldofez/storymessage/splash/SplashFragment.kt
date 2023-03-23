@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import androidx.activity.viewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.rivaldofez.storymessage.BaseActivity
 import com.rivaldofez.storymessage.R
@@ -48,10 +49,21 @@ class SplashFragment : Fragment() {
     }
 
     private fun checkUserSession(){
-        lifecycleScope.launchWhenCreated {
+        viewLifecycleOwner.lifecycleScope.launchWhenCreated {
             launch {
                 splashViewModel.getAuthenticationToken().collect { token ->
-                    Log.d("Hexa", "Test print")
+                    if (token.isNullOrEmpty()) {
+                        Log.d("Hexa", "Call GetAuth gotologin if")
+
+                        val goToLogin = SplashFragmentDirections.actionSplashFragmentToLoginFragment()
+                        findNavController().navigate(goToLogin)
+                    } else {
+                        val goToStory = SplashFragmentDirections.actionSplashFragmentToStoryFragment()
+                        findNavController().navigate(goToStory)
+                    }
+
+
+                    Log.d("Hexa", "Call GetAuth")
                 }
             }
         }
