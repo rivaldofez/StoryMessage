@@ -2,8 +2,10 @@ package com.rivaldofez.storymessage.data.remote
 
 import com.rivaldofez.storymessage.data.local.AuthenticationLocalDataSource
 import com.rivaldofez.storymessage.data.remote.response.LoginResponse
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
 
 class AuthenticationRepository constructor(
     private val apiService: ApiService,
@@ -19,5 +21,11 @@ class AuthenticationRepository constructor(
             e.printStackTrace()
             emit(Result.failure(e))
         }
+    }.flowOn(Dispatchers.IO)
+
+    suspend fun saveAuthenticationToken(token: String){
+        authenticationLocalDataSource.saveAuthenticationToken(token)
     }
+
+    fun getAuthenticationToken(): Flow<String?> = authenticationLocalDataSource.getAuthenticationToken()
 }
