@@ -8,8 +8,8 @@ import com.bumptech.glide.Glide
 fun ImageView.setImageFromUrl(
     context: Context,
     url: String,
-    placeholder: Drawable?,
-    error: Drawable?){
+    placeholder: Drawable? = null,
+    error: Drawable? = null){
 
     Glide.with(context)
         .load(url)

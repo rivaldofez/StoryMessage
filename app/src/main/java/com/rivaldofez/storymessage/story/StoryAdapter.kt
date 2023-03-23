@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.rivaldofez.storymessage.data.remote.response.StoryResponse
 import com.rivaldofez.storymessage.databinding.ItemStoryBinding
+import com.rivaldofez.storymessage.extension.setImageFromUrl
 
 class StoryAdapter: ListAdapter<StoryResponse, StoryAdapter.ViewHolder>(DiffCallback) {
 
@@ -22,6 +23,7 @@ class StoryAdapter: ListAdapter<StoryResponse, StoryAdapter.ViewHolder>(DiffCall
             binding.apply {
                 tvStoryUsername.text = story.name
                 tvStoryDescription.text = story.description
+                imgStoryImage.setImageFromUrl(context, url = story.photoUrl)
 
                 // On item clicked
 
