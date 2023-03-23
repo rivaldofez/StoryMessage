@@ -43,6 +43,11 @@ class LoginFragment : Fragment() {
             btnLogin.setOnClickListener {
                 doUserLogin()
             }
+
+            tvRegister.setOnClickListener {
+                val goToRegister = LoginFragmentDirections.actionLoginFragmentToRegisterFragment()
+                findNavController().navigate(goToRegister)
+            }
         }
     }
 
@@ -52,17 +57,14 @@ class LoginFragment : Fragment() {
 
         if (loginJob.isActive) loginJob.cancel()
 
-        lifecycleScope.launchWhenResumed {
+        viewLifecycleOwner.lifecycleScope.launchWhenResumed {
             loginJob = launch {
                 loginViewModel.userLogin(email = email, password = password).collect { result ->
                     result.onSuccess { loginResponse ->
                         loginResponse.loginResult?.token?.let { token ->
                             loginViewModel.saveAuthenticationToken(token = token)
-                            Log.d("Hexa", "Call save")
                             val goToStory = LoginFragmentDirections.actionLoginFragmentToStoryFragment()
-                            Log.d("Hexa", "Call goto")
                             findNavController().navigate(goToStory)
-                            Log.d("Hexa", "Call navigate")
                         }
 
                         Toast.makeText(
