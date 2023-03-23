@@ -2,9 +2,8 @@ package com.rivaldofez.storymessage.data.remote
 
 import com.rivaldofez.storymessage.data.remote.response.LoginResponse
 import com.rivaldofez.storymessage.data.remote.response.RegisterResponse
-import retrofit2.http.Field
-import retrofit2.http.FormUrlEncoded
-import retrofit2.http.POST
+import com.rivaldofez.storymessage.data.remote.response.StoriesResponse
+import retrofit2.http.*
 
 interface ApiService {
 
@@ -22,5 +21,13 @@ interface ApiService {
         @Field("email") email: String,
         @Field("password") password: String
     ): RegisterResponse
+
+
+    @GET("stories")
+    suspend fun getStories(
+        @Header("Authorization") token: String,
+        @Query("page") page: Int?,
+        @Query("size") size: Int?
+    ): StoriesResponse
 
 }
