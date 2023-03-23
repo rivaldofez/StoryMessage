@@ -5,56 +5,86 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
 import com.rivaldofez.storymessage.R
+import com.rivaldofez.storymessage.data.remote.response.StoryResponse
+import com.rivaldofez.storymessage.databinding.FragmentStoryBinding
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [StoryFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
+@AndroidEntryPoint
 class StoryFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    private var _binding: FragmentStoryBinding? = null
+    private val binding get() = _binding!!
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+
+    private val storyViewModel: StoryViewModel by viewModels()
+    private lateinit var storyRecyclerView: RecyclerView
+    private lateinit var storyAdapter: StoryAdapter
+    private lateinit var token: String
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_story, container, false)
+        _binding = FragmentStoryBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment StoryFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            StoryFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJ1c2VyLWlyc25sM1h2cW9fYlZJOXAiLCJpYXQiOjE2Nzk1NjcyOTZ9.YsQQy3NJG6mfEUzJZTql0hrEjs_Hw25xH90AkTOrl9U"
+        setupStoryRecyclerView()
+        getStories()
+    }
+
+    private fun getStories(){
+
+        viewLifecycleOwner.lifecycleScope.launch{
+            lifecycle.repeatOnLifecycle(Lifecycle.State.RESUMED) {
+                storyViewModel.getStories(token = token).collect { result ->
+                    result.onSuccess { storiesResponse ->
+                        updateRecyclerViewStoryData(stories = storiesResponse.stories)
+                    }
+
+                    result.onFailure {
+                        Snackbar.make(binding.root, "Login Gagal", Snackbar.LENGTH_SHORT).show()
+                    }
                 }
             }
+        }
     }
+
+    private fun updateRecyclerViewStoryData(stories: List<StoryResponse>){
+        val recyclerViewState = storyRecyclerView.layoutManager?.onSaveInstanceState()
+
+        storyAdapter.submitList(stories)
+
+        storyRecyclerView.layoutManager?.onRestoreInstanceState(recyclerViewState)
+    }
+
+    private fun setupStoryRecyclerView(){
+        val linearLayoutManager = LinearLayoutManager(requireContext())
+        storyAdapter = StoryAdapter()
+
+        storyRecyclerView = binding.rvStory
+        storyRecyclerView.apply {
+            adapter = storyAdapter
+            layoutManager = linearLayoutManager
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
+    }
+
 }

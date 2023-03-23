@@ -33,7 +33,7 @@
                 tools:text="Rivaldo Fernandes" />
 
             <ImageView
-                android:id="@+id/iv_story_image"
+                android:id="@+id/img_story_image"
                 android:layout_width="match_parent"
                 android:layout_height="280dp"
                 android:layout_marginTop="8dp"
@@ -51,7 +51,7 @@
                 android:layout_marginTop="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/iv_story_image"
+                app:layout_constraintTop_toBottomOf="@id/img_story_image"
                 tools:text="Lorem ipsum dolor sit amet" />
 
             <TextView
