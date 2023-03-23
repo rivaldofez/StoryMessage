@@ -33,14 +33,29 @@
         tools:layout="@layout/fragment_splash" >
         <action
             android:id="@+id/action_splashFragment_to_loginFragment"
-            app:destination="@id/loginFragment" />
+            app:destination="@id/loginFragment"
+            app:popUpToInclusive="true"
+            app:popUpTo="@id/splashFragment"
+            />
         <action
             android:id="@+id/action_splashFragment_to_storyFragment"
-            app:destination="@id/storyFragment" />
+            app:destination="@id/storyFragment"
+            app:popUpToInclusive="true"
+            app:popUpTo="@id/splashFragment"
+            />
     </fragment>
     <fragment
         android:id="@+id/storyFragment"
         android:name="com.rivaldofez.storymessage.story.StoryFragment"
         android:label="fragment_story"
-        tools:layout="@layout/fragment_story" />
+        tools:layout="@layout/fragment_story" >
+        <action
+            android:id="@+id/action_storyFragment_to_detailStoryFragment"
+            app:destination="@id/detailStoryFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailStoryFragment"
+        android:name="com.rivaldofez.storymessage.detailstory.DetailStoryFragment"
+        android:label="fragment_detail_story"
+        tools:layout="@layout/fragment_detail_story" />
 </navigation>

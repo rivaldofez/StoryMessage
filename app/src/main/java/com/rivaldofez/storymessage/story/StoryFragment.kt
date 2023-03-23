@@ -1,6 +1,7 @@
 package com.rivaldofez.storymessage.story
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
@@ -20,13 +22,14 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class StoryFragment : Fragment() {
+class StoryFragment : Fragment(), StoryItemCallback {
     private var _binding: FragmentStoryBinding? = null
     private val binding get() = _binding!!
 
 
     private val storyViewModel: StoryViewModel by viewModels()
     private lateinit var storyRecyclerView: RecyclerView
+
     private lateinit var storyAdapter: StoryAdapter
     private lateinit var token: String
 
@@ -73,7 +76,7 @@ class StoryFragment : Fragment() {
 
     private fun setupStoryRecyclerView(){
         val linearLayoutManager = LinearLayoutManager(requireContext())
-        storyAdapter = StoryAdapter()
+        storyAdapter = StoryAdapter(this)
 
         storyRecyclerView = binding.rvStory
         storyRecyclerView.apply {
@@ -85,6 +88,11 @@ class StoryFragment : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
+    }
+
+    override fun onStoryClicked(story: StoryResponse) {
+       val goToDetailStory = StoryFragmentDirections.actionStoryFragmentToDetailStoryFragment()
+        findNavController().navigate(goToDetailStory)
     }
 
 }

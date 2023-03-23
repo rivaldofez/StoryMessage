@@ -13,11 +13,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.rivaldofez.storymessage.data.remote.response.StoryResponse
 import com.rivaldofez.storymessage.databinding.ItemStoryBinding
 import com.rivaldofez.storymessage.extension.setImageFromUrl
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class StoryAdapter: ListAdapter<StoryResponse, StoryAdapter.ViewHolder>(DiffCallback) {
+class StoryAdapter (private val callback: StoryItemCallback): ListAdapter<StoryResponse, StoryAdapter.ViewHolder>(DiffCallback) {
 
 
-    class ViewHolder(private val binding: ItemStoryBinding) :
+    inner class ViewHolder(private val binding: ItemStoryBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(context: Context, story: StoryResponse) {
             binding.apply {
@@ -26,6 +28,9 @@ class StoryAdapter: ListAdapter<StoryResponse, StoryAdapter.ViewHolder>(DiffCall
                 imgStoryImage.setImageFromUrl(context, url = story.photoUrl)
 
                 // On item clicked
+                root.setOnClickListener{
+                    callback.onStoryClicked(story = story)
+                }
 
             }
         }
