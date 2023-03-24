@@ -10,6 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -17,6 +18,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.rivaldofez.storymessage.R
 import com.rivaldofez.storymessage.data.remote.response.StoryResponse
 import com.rivaldofez.storymessage.databinding.FragmentStoryBinding
+import com.rivaldofez.storymessage.databinding.ItemStoryBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -96,10 +98,27 @@ class StoryFragment : Fragment(), StoryItemCallback {
         _binding = null
     }
 
-    override fun onStoryClicked(story: StoryResponse) {
-       val goToDetailStory = StoryFragmentDirections.actionStoryFragmentToDetailStoryFragment()
-        goToDetailStory.story = story
-        findNavController().navigate(goToDetailStory)
+    override fun onStoryClicked(story: StoryResponse, itemBinding: ItemStoryBinding) {
+
+
+        itemBinding.apply {
+            val goToDetailStory = StoryFragmentDirections.actionStoryFragmentToDetailStoryFragment()
+            goToDetailStory.story = story
+
+
+            imgStory.transitionName = story.id
+
+            val extras = FragmentNavigatorExtras(
+                imgStory to "image_${story.id}",
+                tvDate to "date_${story.id}",
+                tvName to "name_${story.id}",
+                tvDescription to "description_${story.id}"
+            )
+
+            findNavController().navigate(goToDetailStory, extras)
+        }
+
+
     }
 
 }

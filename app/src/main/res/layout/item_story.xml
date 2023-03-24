@@ -21,50 +21,54 @@
             android:paddingBottom="16dp">
 
             <TextView
-                android:id="@+id/tv_story_username"
+                android:id="@+id/tv_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="16dp"
                 android:textSize="18sp"
                 android:textStyle="bold"
+                android:transitionName="name"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="Rivaldo Fernandes" />
 
             <ImageView
-                android:id="@+id/img_story_image"
+                android:id="@+id/img_story"
                 android:layout_width="match_parent"
                 android:layout_height="280dp"
                 android:layout_marginTop="8dp"
                 android:scaleType="centerCrop"
+                android:transitionName="image_story"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_story_date"
+                app:layout_constraintTop_toBottomOf="@+id/tv_date"
                 tools:src="@drawable/placeholder" />
 
             <TextView
-                android:id="@+id/tv_story_description"
+                android:id="@+id/tv_description"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="16dp"
                 android:layout_marginTop="16dp"
+                android:transitionName="description"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/img_story_image"
+                app:layout_constraintTop_toBottomOf="@id/img_story"
                 tools:text="Lorem ipsum dolor sit amet" />
 
             <TextView
-                android:id="@+id/tv_story_date"
+                android:id="@+id/tv_date"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:alpha="0.6"
                 android:textAllCaps="true"
                 android:textSize="12sp"
                 android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="@+id/tv_story_username"
-                app:layout_constraintStart_toStartOf="@+id/tv_story_username"
-                app:layout_constraintTop_toBottomOf="@+id/tv_story_username"
+                android:transitionName="date"
+                app:layout_constraintEnd_toEndOf="@+id/tv_name"
+                app:layout_constraintStart_toStartOf="@+id/tv_name"
+                app:layout_constraintTop_toBottomOf="@+id/tv_name"
                 tools:text="28 November 2023" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

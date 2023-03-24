@@ -23,13 +23,14 @@ class StoryAdapter (private val callback: StoryItemCallback): ListAdapter<StoryR
         RecyclerView.ViewHolder(binding.root) {
         fun bind(context: Context, story: StoryResponse) {
             binding.apply {
-                tvStoryUsername.text = story.name
-                tvStoryDescription.text = story.description
-                imgStoryImage.setImageFromUrl(context, url = story.photoUrl)
+                tvName.text = story.name
+                tvDescription.text = story.description
+                imgStory.setImageFromUrl(context, url = story.photoUrl)
+                tvDate.text = story.createdAt
 
                 // On item clicked
                 root.setOnClickListener{
-                    callback.onStoryClicked(story = story)
+                    callback.onStoryClicked(story = story, itemBinding = binding)
                 }
 
             }
