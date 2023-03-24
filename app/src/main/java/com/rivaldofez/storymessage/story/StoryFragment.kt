@@ -98,6 +98,7 @@ class StoryFragment : Fragment(), StoryItemCallback {
 
     override fun onStoryClicked(story: StoryResponse) {
        val goToDetailStory = StoryFragmentDirections.actionStoryFragmentToDetailStoryFragment()
+        goToDetailStory.story = story
         findNavController().navigate(goToDetailStory)
     }
 

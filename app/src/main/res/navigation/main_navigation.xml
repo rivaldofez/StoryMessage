@@ -66,6 +66,11 @@
         <action
             android:id="@+id/action_detailStoryFragment_to_storyFragment"
             app:destination="@id/storyFragment" />
+        <argument
+            android:name="story"
+            app:argType="com.rivaldofez.storymessage.data.remote.response.StoryResponse"
+            app:nullable="true"
+            android:defaultValue="@null" />
     </fragment>
     <fragment
         android:id="@+id/addStoryFragment"
