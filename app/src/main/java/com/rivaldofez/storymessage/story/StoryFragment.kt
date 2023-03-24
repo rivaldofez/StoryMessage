@@ -50,7 +50,8 @@ class StoryFragment : Fragment(), StoryItemCallback {
 
 
         binding.fabCreateStory.setOnClickListener {
-
+            val goToCreateStory = StoryFragmentDirections.actionStoryFragmentToAddStoryFragment()
+            findNavController().navigate(goToCreateStory)
         }
     }
 
