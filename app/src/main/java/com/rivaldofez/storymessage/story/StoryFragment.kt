@@ -47,6 +47,11 @@ class StoryFragment : Fragment(), StoryItemCallback {
         token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJ1c2VyLWlyc25sM1h2cW9fYlZJOXAiLCJpYXQiOjE2Nzk1NjcyOTZ9.YsQQy3NJG6mfEUzJZTql0hrEjs_Hw25xH90AkTOrl9U"
         setupStoryRecyclerView()
         getStories()
+
+
+        binding.fabCreateStory.setOnClickListener {
+
+        }
     }
 
     private fun getStories(){

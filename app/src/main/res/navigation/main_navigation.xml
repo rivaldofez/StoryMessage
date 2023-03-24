@@ -15,7 +15,9 @@
             app:destination="@id/registerFragment" />
         <action
             android:id="@+id/action_loginFragment_to_storyFragment"
-            app:destination="@id/storyFragment" />
+            app:destination="@id/storyFragment"
+            app:popUpToInclusive="true"
+            app:popUpTo="@id/loginFragment"/>
     </fragment>
     <fragment
         android:id="@+id/registerFragment"
@@ -52,10 +54,26 @@
         <action
             android:id="@+id/action_storyFragment_to_detailStoryFragment"
             app:destination="@id/detailStoryFragment" />
+        <action
+            android:id="@+id/action_storyFragment_to_addStoryFragment"
+            app:destination="@id/addStoryFragment" />
     </fragment>
     <fragment
         android:id="@+id/detailStoryFragment"
         android:name="com.rivaldofez.storymessage.detailstory.DetailStoryFragment"
         android:label="fragment_detail_story"
-        tools:layout="@layout/fragment_detail_story" />
+        tools:layout="@layout/fragment_detail_story" >
+        <action
+            android:id="@+id/action_detailStoryFragment_to_storyFragment"
+            app:destination="@id/storyFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addStoryFragment"
+        android:name="com.rivaldofez.storymessage.addstory.AddStoryFragment"
+        android:label="fragment_add_story"
+        tools:layout="@layout/fragment_add_story" >
+        <action
+            android:id="@+id/action_addStoryFragment_to_storyFragment"
+            app:destination="@id/storyFragment" />
+    </fragment>
 </navigation>
