@@ -4,13 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/bgColor"
     tools:context=".splash.SplashFragment">
 
     <ImageView
         android:id="@+id/img_logo"
         android:layout_width="200dp"
         android:layout_height="200dp"
-        android:src="@drawable/placeholder"
+        android:src="@drawable/logo"
+        android:contentDescription="@string/cd_logo"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -18,8 +20,8 @@
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/animation_view"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
         android:layout_marginTop="36dp"
         app:lottie_rawRes="@raw/ic_loading"
         app:lottie_loop="true"

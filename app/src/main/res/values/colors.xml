@@ -2,7 +2,7 @@
 <resources>
     <color name="textColor">#FF000000</color>
     <color name="lightTextColor">#FF333333</color>
-    <color name="bgColor">#FFFFFFFF</color>
+    <color name="bgColor">#FCFDFA</color>
     <color name="lightBgColor">#FFDDDDDD</color>
     <color name="accentColor">#E91E63</color>
     <color name="primaryColor">#E91E63</color>

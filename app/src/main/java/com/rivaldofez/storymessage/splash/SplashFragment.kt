@@ -41,7 +41,7 @@ class SplashFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        Glide.with(requireActivity()).load(R.drawable.placeholder).into(binding.imgLogo)
+        Glide.with(requireActivity()).load(R.drawable.logo).into(binding.imgLogo)
         Handler(Looper.getMainLooper()).postDelayed({
             checkUserSession()
         }, SPLASH_TIME)

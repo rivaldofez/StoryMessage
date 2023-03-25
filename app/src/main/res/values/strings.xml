@@ -4,4 +4,5 @@
     <string name="edt_title_password">Password</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="cd_logo">This is Story Message Logo</string>
 </resources>
