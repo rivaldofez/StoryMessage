@@ -1,7 +1,9 @@
 package com.rivaldofez.storymessage.extension
 
+import android.animation.ObjectAnimator
 import android.content.Context
 import android.graphics.drawable.Drawable
+import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.Glide
@@ -29,4 +31,11 @@ fun TextView.setLocaleDateFormat(timestamp: String){
 
     val resultDateFormatted = DateFormat.getDateInstance(DateFormat.FULL).format(date)
     this.text = resultDateFormatted
+}
+
+fun View.animateVisibility(isVisible: Boolean, duration: Long = 400) {
+    ObjectAnimator
+        .ofFloat(this, View.ALPHA, if (isVisible) 1f else 0f)
+        .setDuration(duration)
+        .start()
 }
