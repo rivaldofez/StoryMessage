@@ -15,5 +15,11 @@
         <item name="android:statusBarColor">@color/bgColor</item>
         <item name="android:windowLightStatusBar">true</item>
         <!-- Customize your theme here. -->
+
+    </style>
+
+    <style name="ToolBarTheme"  parent="ThemeOverlay.AppCompat.ActionBar">
+        <item name="colorControlNormal">@color/textColor</item>
+        <item name="titleTextColor">@color/textColor</item>
     </style>
 </resources>

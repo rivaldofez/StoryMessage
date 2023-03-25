@@ -18,4 +18,9 @@
         <item name="android:windowLightStatusBar">false</item>
         <!-- Customize your theme here. -->
     </style>
+
+    <style name="ToolBarTheme"  parent="ThemeOverlay.AppCompat.ActionBar">
+        <item name="colorControlNormal">@color/textColor</item>
+        <item name="android:textColorPrimary">@color/textColor</item>
+    </style>
 </resources>
