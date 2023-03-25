@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/menu_setting"
+        android:icon="@drawable/ic_settings_24"
+        android:title="Setting"
+        app:iconTint="@color/textColor"
+        app:showAsAction="always">
+
+        <menu>
+            <item android:id="@+id/submenu_language"
+                android:title="Language" />
+            <item android:id="@+id/submenu_theme"
+                android:title="Theme" />
+            <item android:id="@+id/submenu_logout"
+                android:title="Logout" />
+        </menu>
+
+    </item>
+
+</menu>

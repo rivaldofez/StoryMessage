@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/bgColor"
     tools:context=".story.StoryFragment">
 
     <androidx.appcompat.widget.Toolbar
@@ -17,7 +18,11 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Stories" />
+            android:text="Stories"
+            android:fontFamily="@font/poppins_regular"
+            android:textStyle="bold"
+            android:textColor="@color/textColor"
+            android:textSize="28sp"/>
 
     </androidx.appcompat.widget.Toolbar>
 
@@ -26,15 +31,16 @@
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar_story">
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_story"
+        app:layout_constraintVertical_bias="0.0">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_story"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:listitem="@layout/item_story"
-            />
+            tools:listitem="@layout/item_story" />
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 

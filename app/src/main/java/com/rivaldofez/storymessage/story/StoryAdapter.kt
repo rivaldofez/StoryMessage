@@ -23,7 +23,7 @@ class StoryAdapter (private val callback: StoryItemCallback): ListAdapter<StoryR
         RecyclerView.ViewHolder(binding.root) {
         fun bind(context: Context, story: StoryResponse) {
             binding.apply {
-                tvName.text = story.name
+                tvName.text = story.name.capitalize()
                 tvDescription.text = story.description
                 imgStory.setImageFromUrl(context, url = story.photoUrl)
                 tvDate.text = story.createdAt
