@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.rivaldofez.storymessage.data.remote.response.StoryResponse
 import com.rivaldofez.storymessage.databinding.ItemStoryBinding
 import com.rivaldofez.storymessage.extension.setImageFromUrl
+import com.rivaldofez.storymessage.extension.setLocaleDateFormat
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -23,10 +24,10 @@ class StoryAdapter (private val callback: StoryItemCallback): ListAdapter<StoryR
         RecyclerView.ViewHolder(binding.root) {
         fun bind(context: Context, story: StoryResponse) {
             binding.apply {
-                tvName.text = story.name.capitalize()
+                tvName.text = story.name.lowercase().replaceFirstChar { it.titlecase() }
                 tvDescription.text = story.description
                 imgStory.setImageFromUrl(context, url = story.photoUrl)
-                tvDate.text = story.createdAt
+                tvDate.setLocaleDateFormat(story.createdAt)
 
                 // On item clicked
                 root.setOnClickListener{

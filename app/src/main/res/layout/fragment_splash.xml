@@ -23,7 +23,7 @@
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:layout_marginTop="36dp"
-        app:lottie_rawRes="@raw/ic_loading"
+        app:lottie_rawRes="@raw/lt_loading"
         app:lottie_loop="true"
         app:lottie_autoPlay="true"
         app:layout_constraintBottom_toBottomOf="parent"

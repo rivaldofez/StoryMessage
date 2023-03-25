@@ -59,6 +59,12 @@
         <action
             android:id="@+id/action_storyFragment_to_addStoryFragment"
             app:destination="@id/addStoryFragment" />
+        <action
+            android:id="@+id/action_storyFragment_to_loginFragment"
+            app:destination="@id/loginFragment"
+            app:popUpToInclusive="true"
+            app:popUpTo="@id/storyFragment"
+            />
     </fragment>
     <fragment
         android:id="@+id/detailStoryFragment"
