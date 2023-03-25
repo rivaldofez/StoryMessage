@@ -1,10 +1,17 @@
 package com.rivaldofez.storymessage.story
 
+import android.app.Dialog
+import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.provider.Settings
 import android.util.Log
 import android.view.*
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.viewModels
@@ -18,10 +25,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
 import com.rivaldofez.storymessage.R
 import com.rivaldofez.storymessage.data.remote.response.StoryResponse
+import com.rivaldofez.storymessage.databinding.DialogConfirmationBinding
 import com.rivaldofez.storymessage.databinding.FragmentStoryBinding
 import com.rivaldofez.storymessage.databinding.ItemStoryBinding
+import com.rivaldofez.storymessage.extension.animateVisibility
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -39,17 +47,13 @@ class StoryFragment : Fragment(), StoryItemCallback {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentStoryBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJ1c2VyLWlyc25sM1h2cW9fYlZJOXAiLCJpYXQiOjE2Nzk1NjcyOTZ9.YsQQy3NJG6mfEUzJZTql0hrEjs_Hw25xH90AkTOrl9U"
-        setupStoryRecyclerView()
-        getStories()
 
         val appCompatActivity = activity as AppCompatActivity
         appCompatActivity.setSupportActionBar(binding.toolbarStory)
@@ -65,15 +69,23 @@ class StoryFragment : Fragment(), StoryItemCallback {
             override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
                 return when (menuItem.itemId){
                     R.id.submenu_language -> {
-                        Log.d("Hexa", "Language")
+                        startActivity(Intent(Settings.ACTION_LOCALE_SETTINGS))
                         true
                     }
-                    R.id.submenu_theme -> {
-                        Log.d("Hexa", "Theme")
+                    R.id.submenu_theme_default -> {
+                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
+                        true
+                    }
+                    R.id.submenu_theme_light -> {
+                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+                        true
+                    }
+                    R.id.submenu_theme_dark -> {
+                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
                         true
                     }
                     R.id.submenu_logout -> {
-                        Log.d("Hexa", "Logout")
+                        showConfirmationDialog("Are you sure to logout?")
                         true
                     }
                     else -> false
@@ -81,6 +93,16 @@ class StoryFragment : Fragment(), StoryItemCallback {
             }
         }, viewLifecycleOwner, Lifecycle.State.RESUMED)
 
+        viewLifecycleOwner.lifecycleScope.launchWhenCreated {
+            storyViewModel.getAuthenticationToken().collect { token ->
+                if (!token.isNullOrEmpty()){
+                    this@StoryFragment.token = token
+                    setupStoryRecyclerView()
+                    getStories()
+                    setSwipeRefresh()
+                }
+            }
+        }
 
         binding.fabCreateStory.setOnClickListener {
             val goToCreateStory = StoryFragmentDirections.actionStoryFragmentToAddStoryFragment()
@@ -88,21 +110,64 @@ class StoryFragment : Fragment(), StoryItemCallback {
         }
     }
 
+    private fun showConfirmationDialog(message: String){
+        val dialogBinding = DialogConfirmationBinding.inflate(layoutInflater)
+
+        val dialog = Dialog(requireContext())
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.setCancelable(false)
+        dialog.setContentView(dialogBinding.root)
+        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+        dialogBinding.apply {
+            tvDialogMessage.text = message
+
+            btnYes.setOnClickListener {
+                storyViewModel.saveAuthenticationToken(token = "")
+                val goToLogin = StoryFragmentDirections.actionStoryFragmentToLoginFragment()
+                findNavController().navigate(goToLogin)
+                dialog.dismiss()
+            }
+
+            btnNo.setOnClickListener {
+                dialog.dismiss()
+            }
+        }
+        dialog.show()
+    }
+
+
+    private fun setSwipeRefresh(){
+        binding.srlStory.setOnRefreshListener {
+            getStories()
+        }
+    }
+
     private fun getStories(){
 
         viewLifecycleOwner.lifecycleScope.launch{
+            binding.srlStory.isRefreshing = true
             lifecycle.repeatOnLifecycle(Lifecycle.State.RESUMED) {
                 storyViewModel.getStories(token = token).collect { result ->
                     result.onSuccess { storiesResponse ->
                         updateRecyclerViewStoryData(stories = storiesResponse.stories)
+                        binding.srlStory.isRefreshing = false
+                        showError(storiesResponse.stories.isEmpty())
                     }
 
                     result.onFailure {
-                        Snackbar.make(binding.root, "Login Gagal", Snackbar.LENGTH_SHORT).show()
+                        Snackbar.make(binding.root, "Error occured while fetch stories data", Snackbar.LENGTH_SHORT).show()
+                        showError(true)
+                        binding.srlStory.isRefreshing = false
                     }
                 }
             }
         }
+    }
+
+    private fun showError(isError: Boolean){
+            binding.layoutError.root.animateVisibility(isError)
+            binding.rvStory.animateVisibility(!isError)
     }
 
     private fun updateRecyclerViewStoryData(stories: List<StoryResponse>){
