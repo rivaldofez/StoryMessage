@@ -17,15 +17,26 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.FileProvider
 import androidx.exifinterface.media.ExifInterface
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.load.resource.bitmap.TransformationUtils
 import com.rivaldofez.storymessage.R
 import com.rivaldofez.storymessage.Utils.MediaUtility
+import com.rivaldofez.storymessage.Utils.MediaUtility.reduceFileImage
 import com.rivaldofez.storymessage.Utils.MediaUtility.uriToFile
 import com.rivaldofez.storymessage.databinding.FragmentAddStoryBinding
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
+import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody.Companion.asRequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.File
 import java.io.FileOutputStream
 import java.io.OutputStream
 
+@AndroidEntryPoint
 class AddStoryFragment : Fragment() {
 
     private var _binding: FragmentAddStoryBinding? = null
@@ -118,8 +129,49 @@ class AddStoryFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJ1c2VyLWlyc25sM1h2cW9fYlZJOXAiLCJpYXQiOjE2Nzk1NjcyOTZ9.YsQQy3NJG6mfEUzJZTql0hrEjs_Hw25xH90AkTOrl9U"
+
         binding.btnCamera.setOnClickListener { startCameraIntent() }
         binding.btnGallery.setOnClickListener { startGalleryIntent() }
+
+        binding.btnSave.setOnClickListener { addStory() }
+
+
+
+    }
+
+    private fun addStory(){
+        var isAllFieldValid = true
+
+        if (binding.edtStory.text.toString().isNullOrBlank()){
+            binding.edtStory.error = "Kolom tidak boleh kosong"
+            isAllFieldValid = false
+        }
+
+        if (getFile == null){
+            isAllFieldValid = false
+        }
+
+        if (isAllFieldValid) {
+            val file = reduceFileImage(getFile as File)
+            val description = binding.edtStory.text.toString().toRequestBody("text/plain".toMediaType())
+            var requestImageFile = file.asRequestBody("image/jpeg".toMediaTypeOrNull())
+            val imageMultipart: MultipartBody.Part = MultipartBody.Part.createFormData(
+                "photo",
+                file.name,
+                requestImageFile
+            )
+
+            viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+                launch {
+                    addStoryViewModel.addStory(token = token, file = imageMultipart, description = description).collect{ response ->
+                        response.onSuccess {
+
+                        }
+                    }
+                }
+            }
+        }
     }
 
     override fun onDestroyView() {

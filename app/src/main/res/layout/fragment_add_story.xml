@@ -74,6 +74,16 @@
                 app:layout_constraintStart_toEndOf="@+id/btn_camera"
                 app:layout_constraintTop_toTopOf="@+id/btn_camera" />
 
+            <Button
+                android:id="@+id/btn_save"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="Save"
+                app:layout_constraintBottom_toBottomOf="@+id/btn_camera"
+                app:layout_constraintStart_toEndOf="@+id/btn_gallery"
+                app:layout_constraintTop_toTopOf="@+id/btn_camera" />
+
 
             <TextView
                 android:id="@+id/tv_title_write_description"
