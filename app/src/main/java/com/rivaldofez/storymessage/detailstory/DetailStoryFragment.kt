@@ -3,7 +3,6 @@ package com.rivaldofez.storymessage.detailstory
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.transition.TransitionInflater
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -15,6 +14,7 @@ import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
+import com.rivaldofez.storymessage.R
 import com.rivaldofez.storymessage.data.remote.response.StoryResponse
 import com.rivaldofez.storymessage.databinding.FragmentDetailStoryBinding
 import com.rivaldofez.storymessage.extension.setLocaleDateFormat
@@ -32,7 +32,7 @@ class DetailStoryFragment : Fragment(){
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         _binding = FragmentDetailStoryBinding.inflate(inflater, container, false)
         return binding.root
@@ -49,32 +49,21 @@ class DetailStoryFragment : Fragment(){
             binding.tvDate.transitionName = "date_${story.id}"
             binding.tvDescription.transitionName = "description_${story.id}"
             binding.tvName.transitionName = "name_${story.id}"
+            binding.toolbarDetailStory.title = getString(R.string.detail_toolbar_title, story.name.lowercase().replaceFirstChar { it.titlecase() })
+
             setStoryToView(story)
+            setToolbarAction()
+        }
+    }
 
-            val appCompatActivity = activity as AppCompatActivity
-            appCompatActivity.setSupportActionBar(binding.toolbarDetailStory)
-            appCompatActivity.supportActionBar?.setDisplayHomeAsUpEnabled(true)
-            appCompatActivity.supportActionBar?.setDisplayShowHomeEnabled(true)
+    private fun setToolbarAction(){
+        val appCompatActivity = activity as AppCompatActivity
+        appCompatActivity.setSupportActionBar(binding.toolbarDetailStory)
+        appCompatActivity.supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        appCompatActivity.supportActionBar?.setDisplayShowHomeEnabled(true)
 
-//            requireActivity().onBackPressedDispatcher.addCallback( viewLifecycleOwner, object : OnBackPressedCallback(true) {
-//                override fun handleOnBackPressed() {
-//                    Log.d("Hexa", "Test")
-//                }
-//            })
-
-            binding.toolbarDetailStory.setNavigationOnClickListener {
-                findNavController().popBackStack()
-            }
-
-//            binding.toolbarDetailStory.setOnMenuItemClickListener {
-//                when (it.itemId){
-//                    android.R.id.home -> {
-//                        findNavController().popBackStack()
-//                        true
-//                    }
-//                    else -> false
-//                }
-//            }
+        binding.toolbarDetailStory.setNavigationOnClickListener {
+            findNavController().popBackStack()
         }
     }
 
@@ -112,7 +101,6 @@ class DetailStoryFragment : Fragment(){
                 .into(imgStory)
         }
     }
-
 
     override fun onDestroyView() {
         super.onDestroyView()

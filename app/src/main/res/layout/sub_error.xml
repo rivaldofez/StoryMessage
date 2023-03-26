@@ -27,7 +27,6 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Error occured while fetch stories data"
         android:layout_margin="16dp"
         style="@style/TitleText"
         app:layout_constraintBottom_toBottomOf="parent"

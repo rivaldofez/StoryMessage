@@ -13,7 +13,6 @@ import com.rivaldofez.storymessage.extension.setLocaleDateFormat
 
 class StoryAdapter (private val callback: StoryItemCallback): ListAdapter<StoryResponse, StoryAdapter.ViewHolder>(DiffCallback) {
 
-
     inner class ViewHolder(private val binding: ItemStoryBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(context: Context, story: StoryResponse) {

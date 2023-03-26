@@ -34,6 +34,7 @@
     <string name="field_story_error">Story field cannot be empty</string>
     <string name="error_while_upload_story">Error occurred while upload stories data, please try again</string>
     <string name="success_upload_story">Upload Story Succeed</string>
+    <string name="detail_toolbar_title">%s\'s Story</string>
 
 
 </resources>
