@@ -19,4 +19,5 @@ class AddStoryViewModel @Inject constructor(
     suspend fun addStory(token: String, file: MultipartBody.Part, description: RequestBody):
             Flow<Result<AddStoryResponse>> = storyRepository.addStory(token = token, file = file, description = description)
 
+    fun getAuthenticationToken(): Flow<String?> = authenticationRepository.getAuthenticationToken()
 }

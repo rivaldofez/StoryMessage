@@ -4,22 +4,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/bgColor"
     tools:context=".addstory.AddStoryFragment">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar_add_story"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:theme="@style/ToolBarTheme"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Add Story" />
-
-    </androidx.appcompat.widget.Toolbar>
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="0dp"
@@ -35,11 +31,14 @@
             android:layout_height="wrap_content">
 
 
-            <ImageView
+            <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/img_story"
-                android:layout_width="match_parent"
-                android:layout_height="300dp"
+                android:layout_width="0dp"
+                android:layout_height="500dp"
                 android:src="@drawable/placeholder"
+                android:scaleType="centerCrop"
+                android:layout_marginHorizontal="16dp"
+                app:shapeAppearanceOverlay="@style/RoundedImageView"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
@@ -49,62 +48,61 @@
                 android:id="@+id/tv_title_select_image"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
-                android:layout_marginTop="32dp"
-                android:text="Select Image From"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:text="Select Image From: "
+                style="@style/TitleText"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/img_story" />
 
-            <Button
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/btn_camera"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="Camera"
+                android:src="@drawable/ic_camera_24"
+                app:maxImageSize="30dp"
+                app:tint="@color/white"
                 app:layout_constraintStart_toStartOf="@+id/tv_title_select_image"
                 app:layout_constraintTop_toBottomOf="@+id/tv_title_select_image" />
 
-            <Button
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/btn_gallery"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:text="Gallery"
+                android:layout_marginStart="16dp"
+                android:src="@drawable/ic_gallery_24"
+                app:maxImageSize="30dp"
+                app:tint="@color/white"
                 app:layout_constraintBottom_toBottomOf="@+id/btn_camera"
                 app:layout_constraintStart_toEndOf="@+id/btn_camera"
                 app:layout_constraintTop_toTopOf="@+id/btn_camera" />
-
-            <Button
-                android:id="@+id/btn_save"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:text="Save"
-                app:layout_constraintBottom_toBottomOf="@+id/btn_camera"
-                app:layout_constraintStart_toEndOf="@+id/btn_gallery"
-                app:layout_constraintTop_toTopOf="@+id/btn_camera" />
-
 
             <TextView
                 android:id="@+id/tv_title_write_description"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="Write your story"
+                android:layout_marginTop="32dp"
+                android:text="Write your story:"
+                style="@style/TitleText"
                 app:layout_constraintStart_toStartOf="@id/tv_title_select_image"
                 app:layout_constraintTop_toBottomOf="@id/btn_camera" />
 
             <EditText
                 android:id="@+id/edt_story"
+                style="@style/BodyText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="32dp"
+                android:layout_marginHorizontal="16dp"
                 android:layout_marginTop="8dp"
+                android:layout_marginBottom="16dp"
+                android:backgroundTint="@color/primaryColor"
+                android:hint="Once upon a time..."
                 android:importantForAutofill="no"
                 android:inputType="textMultiLine"
-                android:contentDescription="Write your story here"
+                android:textColorHint="@color/lightTextColor"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_title_write_description" />
 
@@ -113,6 +111,17 @@
 
 
     </androidx.core.widget.NestedScrollView>
+
+
+    <include
+        android:id="@+id/layout_loading"
+        layout="@layout/sub_loading"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 

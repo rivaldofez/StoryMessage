@@ -61,10 +61,10 @@
                 android:layout_marginTop="16dp"
                 android:scaleType="centerCrop"
                 android:transitionName="image_story"
+                app:shapeAppearanceOverlay="@style/RoundedImageView"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_date"
-                app:shapeAppearanceOverlay="@style/RoundedImageView"
                 tools:src="@drawable/placeholder" />
 
             <TextView
