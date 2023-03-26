@@ -24,6 +24,16 @@
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="cd_item_story">Image of story</string>
+    <string name="cd_button_gallery">Add from gallery</string>
+    <string name="cd_button_camera">Add image from camera</string>
+    <string name="title_select_image">Select Image From:</string>
+    <string name="title_write_story">Write your story:</string>
+    <string name="hint_add_story_text">Once upon a time…</string>
+    <string name="dialog_choose_an_image">Choose an Image</string>
+    <string name="title_add_story">Add Story</string>
+    <string name="field_story_error">Story field cannot be empty</string>
+    <string name="error_while_upload_story">Error occurred while upload stories data, please try again</string>
+    <string name="success_upload_story">Upload Story Succeed</string>
 
 
 </resources>

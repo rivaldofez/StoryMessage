@@ -29,7 +29,7 @@ import com.rivaldofez.storymessage.Utils.MediaUtility.uriToFile
 import com.rivaldofez.storymessage.databinding.FragmentAddStoryBinding
 import com.rivaldofez.storymessage.extension.animateVisibility
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -50,7 +50,6 @@ class AddStoryFragment : Fragment() {
     private var getFile: File? = null
     private var token: String = ""
 
-
     private val addStoryViewModel: AddStoryViewModel by viewModels()
 
     private val launcherCameraIntent = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){ result ->
@@ -58,7 +57,6 @@ class AddStoryFragment : Fragment() {
             val file = File(currentPhotoPath).also { getFile = it }
             val os: OutputStream
 
-            // Rotate image to correct orientation
             val bitmap = BitmapFactory.decodeFile(getFile?.path)
             val exif = ExifInterface(currentPhotoPath)
             val orientation: Int = exif.getAttributeInt(
@@ -72,22 +70,19 @@ class AddStoryFragment : Fragment() {
                 ExifInterface.ORIENTATION_NORMAL -> bitmap
                 else -> bitmap
             }
-
-            // Convert rotated image to file
             try {
-                os = FileOutputStream(file)
-                rotatedBitmap.compress(Bitmap.CompressFormat.JPEG, 100, os)
-                os.flush()
-                os.close()
-
+                Dispatchers.Main.apply {
+                    os = FileOutputStream(file)
+                    rotatedBitmap.compress(Bitmap.CompressFormat.JPEG, 100, os)
+                    os.flush()
+                    os.close()
+                }
                 getFile = file
             } catch (e: Exception) {
                 e.printStackTrace()
             }
-
             binding.imgStory.setImageBitmap(rotatedBitmap)
         }
-
     }
 
     private val launcherGalleryIntent = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){ result ->
@@ -99,32 +94,10 @@ class AddStoryFragment : Fragment() {
         }
     }
 
-    private fun startCameraIntent(){
-        val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-        intent.resolveActivity(requireActivity().packageManager)
-
-        MediaUtility.createTempFile(requireActivity()).also {
-            val photoUri =
-                FileProvider.getUriForFile(requireContext(), "com.rivaldofez.storymessage", it)
-
-            currentPhotoPath = it.absolutePath
-            intent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri)
-            launcherCameraIntent.launch(intent)
-        }
-    }
-
-    private fun startGalleryIntent(){
-        val intent = Intent()
-        intent.action = ACTION_GET_CONTENT
-        intent.type = "image/*"
-        val chooser = Intent.createChooser(intent, "Choose a Picture")
-        launcherGalleryIntent.launch(chooser)
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
        _binding = FragmentAddStoryBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -132,15 +105,31 @@ class AddStoryFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.btnCamera.setOnClickListener { startCameraIntent() }
-        binding.btnGallery.setOnClickListener { startGalleryIntent() }
+        setUserToken()
+        setToolbarActions()
+        setActions()
+    }
 
+    private fun setUserToken(){
+        viewLifecycleOwner.lifecycleScope.launchWhenCreated {
+            addStoryViewModel.getAuthenticationToken().collect { token ->
+                if (!token.isNullOrEmpty()){
+                    this@AddStoryFragment.token = token
+                }
+            }
+        }
+    }
+    private fun setToolbarActions(){
         val appCompatActivity = activity as AppCompatActivity
         appCompatActivity.setSupportActionBar(binding.toolbarAddStory)
         appCompatActivity.supportActionBar?.apply {
             setDisplayHomeAsUpEnabled(true)
             setDisplayShowHomeEnabled(true)
-            title = "Add Story"
+            title = getString(R.string.title_add_story)
+        }
+
+        binding.toolbarAddStory.setNavigationOnClickListener {
+            findNavController().popBackStack()
         }
 
         val menuHost: MenuHost = requireActivity()
@@ -160,20 +149,33 @@ class AddStoryFragment : Fragment() {
                 }
             }
         }, viewLifecycleOwner, Lifecycle.State.RESUMED)
+    }
 
-        viewLifecycleOwner.lifecycleScope.launchWhenCreated {
-            addStoryViewModel.getAuthenticationToken().collect { token ->
-                if (!token.isNullOrEmpty()){
-                    this@AddStoryFragment.token = token
-                }
-            }
-        }
+    private fun setActions(){
+        binding.btnCamera.setOnClickListener { startCameraIntent() }
+        binding.btnGallery.setOnClickListener { startGalleryIntent() }
+    }
 
-        binding.toolbarAddStory.setNavigationOnClickListener {
-            findNavController().popBackStack()
+    private fun startCameraIntent(){
+        val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+
+        MediaUtility.createTempFile(requireActivity()).also {
+            val photoUri =
+                FileProvider.getUriForFile(requireContext(), "com.rivaldofez.storymessage", it)
+
+            currentPhotoPath = it.absolutePath
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri)
+            launcherCameraIntent.launch(intent)
         }
     }
 
+    private fun startGalleryIntent(){
+        val intent = Intent()
+        intent.action = ACTION_GET_CONTENT
+        intent.type = "image/*"
+        val chooser = Intent.createChooser(intent, getString(R.string.dialog_choose_an_image))
+        launcherGalleryIntent.launch(chooser)
+    }
     private fun showLoading(isLoading: Boolean){
         binding.apply {
             btnGallery.isEnabled = !isLoading
@@ -188,8 +190,8 @@ class AddStoryFragment : Fragment() {
         var isAllFieldValid = true
         showLoading(isLoading = true)
 
-        if (binding.edtStory.text.toString().isNullOrBlank()){
-            binding.edtStory.error = "Kolom tidak boleh kosong"
+        if (binding.edtStory.text.isNullOrBlank()){
+            binding.edtStory.error = getString(R.string.field_story_error)
             isAllFieldValid = false
         }
 
@@ -200,7 +202,7 @@ class AddStoryFragment : Fragment() {
         if (isAllFieldValid) {
             val file = reduceFileImage(getFile as File)
             val description = binding.edtStory.text.toString().toRequestBody("text/plain".toMediaType())
-            var requestImageFile = file.asRequestBody("image/jpeg".toMediaTypeOrNull())
+            val requestImageFile = file.asRequestBody("image/jpeg".toMediaTypeOrNull())
             val imageMultipart: MultipartBody.Part = MultipartBody.Part.createFormData(
                 "photo",
                 file.name,
@@ -212,17 +214,29 @@ class AddStoryFragment : Fragment() {
                     addStoryViewModel.addStory(token = token, file = imageMultipart, description = description).collect{ response ->
                         response.onSuccess {
                             showLoading(isLoading = false)
+                            Snackbar.make(
+                                binding.root,
+                                getString(R.string.success_upload_story),
+                                Snackbar.LENGTH_SHORT
+                            ).show()
                             findNavController().popBackStack()
                         }
 
                         response.onFailure {
                             showLoading(isLoading = false)
-                            Snackbar.make(binding.root, "Error occured while upload data", Snackbar.LENGTH_SHORT).show()
+                            Snackbar.make(binding.root, getString(R.string.error_while_upload_story), Snackbar.LENGTH_SHORT).show()
                         }
                     }
                 }
             }
-        } else showLoading(isLoading = false)
+        } else {
+            showLoading(isLoading = false)
+            Snackbar.make(
+                binding.root,
+                getString(R.string.error_field_not_valid),
+                Snackbar.LENGTH_SHORT
+            ).show()
+        }
     }
 
     override fun onDestroyView() {

@@ -34,9 +34,9 @@
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/img_story"
                 android:layout_width="0dp"
-                android:layout_height="500dp"
-                android:src="@drawable/placeholder"
-                android:scaleType="centerCrop"
+                android:layout_height="wrap_content"
+                android:src="@drawable/img_add"
+                android:scaleType="fitCenter"
                 android:layout_marginHorizontal="16dp"
                 app:shapeAppearanceOverlay="@style/RoundedImageView"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -50,7 +50,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
-                android:text="Select Image From: "
+                android:text="@string/title_select_image"
                 style="@style/TitleText"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/img_story" />
@@ -61,6 +61,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:src="@drawable/ic_camera_24"
+                android:contentDescription="@string/cd_button_camera"
                 app:maxImageSize="30dp"
                 app:tint="@color/white"
                 app:layout_constraintStart_toStartOf="@+id/tv_title_select_image"
@@ -72,6 +73,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:src="@drawable/ic_gallery_24"
+                android:contentDescription="@string/cd_button_gallery"
                 app:maxImageSize="30dp"
                 app:tint="@color/white"
                 app:layout_constraintBottom_toBottomOf="@+id/btn_camera"
@@ -79,11 +81,11 @@
                 app:layout_constraintTop_toTopOf="@+id/btn_camera" />
 
             <TextView
-                android:id="@+id/tv_title_write_description"
+                android:id="@+id/tv_title_write_story"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="32dp"
-                android:text="Write your story:"
+                android:text="@string/title_write_story"
                 style="@style/TitleText"
                 app:layout_constraintStart_toStartOf="@id/tv_title_select_image"
                 app:layout_constraintTop_toBottomOf="@id/btn_camera" />
@@ -91,22 +93,22 @@
             <EditText
                 android:id="@+id/edt_story"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:layout_marginHorizontal="16dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="16dp"
-                android:hint="Once upon a time..."
+                android:hint="@string/hint_add_story_text"
                 android:importantForAutofill="no"
                 android:inputType="textMultiLine"
                 style="@style/EditTextType1"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_title_write_description" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_title_write_story"
+                tools:ignore="VisualLintTextFieldSize" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
 
     </androidx.core.widget.NestedScrollView>
 
