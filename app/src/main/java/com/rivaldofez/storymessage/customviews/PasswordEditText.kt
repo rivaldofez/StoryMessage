@@ -39,15 +39,15 @@ class PasswordEditText: AppCompatEditText {
         inputType = InputType.TYPE_TEXT_VARIATION_PASSWORD
         compoundDrawablePadding = 16
 
-        setHint(R.string.edt_title_password)
+        setHint(R.string.password)
         setDrawable(iconPasswordDrawable)
 
         addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                if (!p0.isNullOrEmpty() && p0.length <= 8 ){
-                    error = "Password length minimum 8"
+                if (!p0.isNullOrEmpty() && p0.length < 8 ){
+                    error = context.getString(R.string.field_password_error)
                 }
             }
 

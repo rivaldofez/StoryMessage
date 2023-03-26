@@ -38,7 +38,7 @@ class EmailEditText: AppCompatEditText {
         inputType = InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS
         compoundDrawablePadding = 16
 
-        setHint(R.string.edt_title_email)
+        setHint(R.string.email)
         setAutofillHints(AUTOFILL_HINT_EMAIL_ADDRESS)
         setDrawable(iconEmailDrawable)
 
@@ -47,7 +47,7 @@ class EmailEditText: AppCompatEditText {
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 if (!p0.isNullOrEmpty() && !Patterns.EMAIL_ADDRESS.matcher(p0).matches()){
-                    error = "Email address is not valid"
+                    error = context.getString(R.string.field_email_error)
                 }
             }
 

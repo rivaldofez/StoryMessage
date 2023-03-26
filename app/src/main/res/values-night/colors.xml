@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="textColor">#FFFFFFFF</color>
+    <color name="lightTextColor">#FFDDDDDD</color>
+    <color name="bgColor">#0e1223</color>
+    <color name="lightBgColor">#1C223C</color>
+    <color name="accentColor">#D6476F</color>
+    <color name="primaryColor">#D6476F</color>
+    <color name="link">#2196F3</color>
+
+    <color name="transparent">#000e1223</color>
+    <color name="transparent_90">#1A0E1223</color>
+    <color name="transparent_75">#400e1223</color>
+    <color name="transparent_50">#800e1223</color>
+    <color name="transparent_25">#BF0E1223</color>
+    <color name="transparent_10">#E60e1223</color>
+
+    <color name="xtransparent">#00FFFFFF</color>
+    <color name="xtransparent_90">#1AFFFFFF</color>
+    <color name="xtransparent_75">#40FFFFFF</color>
+    <color name="xtransparent_50">#80FFFFFF</color>
+    <color name="xtransparent_25">#BFFFFFFF</color>
+    <color name="xtransparent_10">#E6FFFFFF</color>
+    <color name="green">#01875f</color>
+
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+</resources>

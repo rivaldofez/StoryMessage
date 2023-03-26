@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/menu_setting"
+        android:icon="@drawable/ic_settings_24"
+        android:title="@string/title_menu_settings"
+        app:iconTint="@color/textColor"
+        app:showAsAction="always">
+
+        <menu>
+            <item android:id="@+id/submenu_language"
+                android:icon="@drawable/ic_language_24"
+                android:title="@string/title_menu_language" />
+
+            <item android:title="@string/title_menu_theme"
+                android:icon="@drawable/ic_dark_mode_24">
+                <menu>
+                    <item android:id="@+id/submenu_theme_default"
+                        android:title="@string/title_menu_theme_default" />
+                    <item android:id="@+id/submenu_theme_dark"
+                        android:title="@string/title_menu_theme_dark" />
+                    <item android:id="@+id/submenu_theme_light"
+                        android:title="@string/title_menu_theme_light" />
+
+                </menu>
+            </item>
+
+            <item android:id="@+id/submenu_logout"
+                android:icon="@drawable/ic_exit_24"
+                android:title="@string/title_menu_logout" />
+        </menu>
+
+    </item>
+
+</menu>
