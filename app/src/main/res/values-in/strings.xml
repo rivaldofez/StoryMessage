@@ -33,7 +33,7 @@
     <string name="title_add_story">Tambah Cerita</string>
     <string name="field_story_error">Kolom cerita tidak boleh kosong</string>
     <string name="field_email_error">Format email salah</string>
-    <string name="field_password_error">Kata sandi harus terdiri dari minimal 6 karakter</string>
+    <string name="field_password_error">Kata sandi harus terdiri dari minimal 8 karakter</string>
     <string name="error_while_upload_story">Terjadi kesalahan saat menambahkan cerita, silakan coba lagi</string>
     <string name="success_upload_story">Berhasil menambahkan cerita</string>
     <string name="detail_toolbar_title">Cerita dari %s</string>

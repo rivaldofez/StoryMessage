@@ -33,7 +33,7 @@
     <string name="title_add_story">Add Story</string>
     <string name="field_story_error">Story field cannot be empty</string>
     <string name="field_email_error">Email format is invalid</string>
-    <string name="field_password_error">Password length minimum is 6 character</string>
+    <string name="field_password_error">Password length minimum is 8 character</string>
     <string name="error_while_upload_story">Error occurred while upload stories data, please try again</string>
     <string name="success_upload_story">Add Story Succeeds</string>
     <string name="detail_toolbar_title">%s\'s Story</string>
