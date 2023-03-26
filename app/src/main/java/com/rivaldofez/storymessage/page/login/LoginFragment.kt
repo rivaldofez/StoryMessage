@@ -12,7 +12,6 @@ import com.google.android.material.snackbar.Snackbar
 import com.rivaldofez.storymessage.R
 import com.rivaldofez.storymessage.databinding.FragmentLoginBinding
 import com.rivaldofez.storymessage.extension.animateVisibility
-import com.rivaldofez.storymessage.login.LoginFragmentDirections
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
