@@ -1,12 +1,8 @@
 package com.rivaldofez.storymessage.story
 
-import android.app.Activity
 import android.content.Context
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.app.ActivityOptionsCompat
-import androidx.core.util.Pair
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -14,8 +10,6 @@ import com.rivaldofez.storymessage.data.remote.response.StoryResponse
 import com.rivaldofez.storymessage.databinding.ItemStoryBinding
 import com.rivaldofez.storymessage.extension.setImageFromUrl
 import com.rivaldofez.storymessage.extension.setLocaleDateFormat
-import javax.inject.Inject
-import javax.inject.Singleton
 
 class StoryAdapter (private val callback: StoryItemCallback): ListAdapter<StoryResponse, StoryAdapter.ViewHolder>(DiffCallback) {
 
@@ -29,15 +23,12 @@ class StoryAdapter (private val callback: StoryItemCallback): ListAdapter<StoryR
                 imgStory.setImageFromUrl(context, url = story.photoUrl)
                 tvDate.setLocaleDateFormat(story.createdAt)
 
-                // On item clicked
                 root.setOnClickListener{
                     callback.onStoryClicked(story = story, itemBinding = binding)
                 }
-
             }
         }
     }
-
 
     companion object {
         private val DiffCallback = object : DiffUtil.ItemCallback<StoryResponse>() {
@@ -60,5 +51,4 @@ class StoryAdapter (private val callback: StoryItemCallback): ListAdapter<StoryR
         val story = getItem(position)
         holder.bind(holder.itemView.context, story)
     }
-
 }

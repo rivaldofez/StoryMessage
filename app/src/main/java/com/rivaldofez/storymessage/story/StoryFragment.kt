@@ -6,9 +6,7 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.provider.Settings
-import android.util.Log
 import android.view.*
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
@@ -37,7 +35,6 @@ class StoryFragment : Fragment(), StoryItemCallback {
     private var _binding: FragmentStoryBinding? = null
     private val binding get() = _binding!!
 
-
     private val storyViewModel: StoryViewModel by viewModels()
     private lateinit var storyRecyclerView: RecyclerView
 
@@ -55,12 +52,17 @@ class StoryFragment : Fragment(), StoryItemCallback {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        setToolbarAction()
+        setStoriesDataToView()
+        setActions()
+    }
+
+    private fun setToolbarAction(){
         val appCompatActivity = activity as AppCompatActivity
         appCompatActivity.setSupportActionBar(binding.toolbarStory)
         appCompatActivity.supportActionBar?.setDisplayShowTitleEnabled(false)
 
         val menuHost: MenuHost = requireActivity()
-
         menuHost.addMenuProvider(object : MenuProvider {
             override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
                 menuInflater.inflate(R.menu.story_menu, menu)
@@ -85,14 +87,16 @@ class StoryFragment : Fragment(), StoryItemCallback {
                         true
                     }
                     R.id.submenu_logout -> {
-                        showConfirmationDialog("Are you sure to logout?")
+                        showConfirmationDialog(getString(R.string.dialog_confirmation_logout))
                         true
                     }
                     else -> false
                 }
             }
         }, viewLifecycleOwner, Lifecycle.State.RESUMED)
+    }
 
+    private fun setStoriesDataToView(){
         viewLifecycleOwner.lifecycleScope.launchWhenCreated {
             storyViewModel.getAuthenticationToken().collect { token ->
                 if (!token.isNullOrEmpty()){
@@ -103,7 +107,9 @@ class StoryFragment : Fragment(), StoryItemCallback {
                 }
             }
         }
+    }
 
+    private fun setActions(){
         binding.fabCreateStory.setOnClickListener {
             val goToCreateStory = StoryFragmentDirections.actionStoryFragmentToAddStoryFragment()
             findNavController().navigate(goToCreateStory)
@@ -136,7 +142,6 @@ class StoryFragment : Fragment(), StoryItemCallback {
         dialog.show()
     }
 
-
     private fun setSwipeRefresh(){
         binding.srlStory.setOnRefreshListener {
             getStories()
@@ -156,7 +161,7 @@ class StoryFragment : Fragment(), StoryItemCallback {
                     }
 
                     result.onFailure {
-                        Snackbar.make(binding.root, "Error occured while fetch stories data", Snackbar.LENGTH_SHORT).show()
+                        Snackbar.make(binding.root, getString(R.string.error_while_fetch_stories), Snackbar.LENGTH_SHORT).show()
                         showError(true)
                         binding.srlStory.isRefreshing = false
                     }
@@ -172,9 +177,7 @@ class StoryFragment : Fragment(), StoryItemCallback {
 
     private fun updateRecyclerViewStoryData(stories: List<StoryResponse>){
         val recyclerViewState = storyRecyclerView.layoutManager?.onSaveInstanceState()
-
         storyAdapter.submitList(stories)
-
         storyRecyclerView.layoutManager?.onRestoreInstanceState(recyclerViewState)
     }
 
@@ -195,15 +198,11 @@ class StoryFragment : Fragment(), StoryItemCallback {
     }
 
     override fun onStoryClicked(story: StoryResponse, itemBinding: ItemStoryBinding) {
-
-
         itemBinding.apply {
             val goToDetailStory = StoryFragmentDirections.actionStoryFragmentToDetailStoryFragment()
             goToDetailStory.story = story
 
-
             imgStory.transitionName = story.id
-
             val extras = FragmentNavigatorExtras(
                 imgStory to "image_${story.id}",
                 tvDate to "date_${story.id}",
@@ -213,8 +212,5 @@ class StoryFragment : Fragment(), StoryItemCallback {
 
             findNavController().navigate(goToDetailStory, extras)
         }
-
-
     }
-
 }

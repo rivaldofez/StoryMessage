@@ -17,6 +17,13 @@
     <string name="success_register">Registration Success</string>
     <string name="error_while_login">Error occurred while login, please try again</string>
     <string name="success_login">Login Success</string>
+    <string name="dialog_confirmation_logout">Are you sure to logout?</string>
+    <string name="cd_button_add">Add story</string>
+    <string name="stories">Stories</string>
+    <string name="error_while_fetch_stories">Error occurred while fetch stories data, please try again</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="cd_item_story">Image of story</string>
 
 
 </resources>
