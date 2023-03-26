@@ -8,17 +8,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.OnBackPressedCallback
-import androidx.activity.addCallback
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.MenuHost
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
-import com.rivaldofez.storymessage.R
 import com.rivaldofez.storymessage.data.remote.response.StoryResponse
 import com.rivaldofez.storymessage.databinding.FragmentDetailStoryBinding
 import com.rivaldofez.storymessage.extension.setLocaleDateFormat
@@ -67,13 +63,13 @@ class DetailStoryFragment : Fragment(){
 //            })
 
             binding.toolbarDetailStory.setNavigationOnClickListener {
-                Log.d("Hexa", "Test")
+                findNavController().popBackStack()
             }
 
 //            binding.toolbarDetailStory.setOnMenuItemClickListener {
 //                when (it.itemId){
 //                    android.R.id.home -> {
-//                        Log.d("Hexa", "Test")
+//                        findNavController().popBackStack()
 //                        true
 //                    }
 //                    else -> false

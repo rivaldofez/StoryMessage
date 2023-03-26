@@ -5,7 +5,6 @@ import com.rivaldofez.storymessage.data.remote.response.LoginResponse
 import com.rivaldofez.storymessage.data.remote.response.RegisterResponse
 import com.rivaldofez.storymessage.data.remote.response.StoriesResponse
 import okhttp3.MultipartBody
-import okhttp3.MultipartReader
 import okhttp3.RequestBody
 import retrofit2.http.*
 

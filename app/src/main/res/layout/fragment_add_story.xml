@@ -90,17 +90,15 @@
 
             <EditText
                 android:id="@+id/edt_story"
-                style="@style/BodyText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="16dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="16dp"
-                android:backgroundTint="@color/primaryColor"
                 android:hint="Once upon a time..."
                 android:importantForAutofill="no"
                 android:inputType="textMultiLine"
-                android:textColorHint="@color/lightTextColor"
+                style="@style/EditTextType1"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

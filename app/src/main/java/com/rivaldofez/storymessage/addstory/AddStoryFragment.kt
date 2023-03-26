@@ -53,7 +53,6 @@ class AddStoryFragment : Fragment() {
 
     private val addStoryViewModel: AddStoryViewModel by viewModels()
 
-
     private val launcherCameraIntent = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){ result ->
         if (result.resultCode == RESULT_OK) {
             val file = File(currentPhotoPath).also { getFile = it }
@@ -88,6 +87,7 @@ class AddStoryFragment : Fragment() {
 
             binding.imgStory.setImageBitmap(rotatedBitmap)
         }
+
     }
 
     private val launcherGalleryIntent = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){ result ->
@@ -167,6 +167,10 @@ class AddStoryFragment : Fragment() {
                     this@AddStoryFragment.token = token
                 }
             }
+        }
+
+        binding.toolbarAddStory.setNavigationOnClickListener {
+            findNavController().popBackStack()
         }
     }
 
