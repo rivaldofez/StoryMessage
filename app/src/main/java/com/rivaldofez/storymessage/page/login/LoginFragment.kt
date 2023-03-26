@@ -1,4 +1,4 @@
-package com.rivaldofez.storymessage.register
+package com.rivaldofez.storymessage.page.login
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -10,25 +10,27 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.rivaldofez.storymessage.R
-import com.rivaldofez.storymessage.databinding.FragmentRegisterBinding
+import com.rivaldofez.storymessage.databinding.FragmentLoginBinding
 import com.rivaldofez.storymessage.extension.animateVisibility
+import com.rivaldofez.storymessage.login.LoginFragmentDirections
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class RegisterFragment : Fragment() {
-    private var _binding: FragmentRegisterBinding? = null
+class LoginFragment : Fragment() {
+
+    private var _binding: FragmentLoginBinding? = null
     private val binding get() = _binding!!
 
-    private var registerJob: Job = Job()
-    private val registerViewModel: RegisterViewModel by viewModels()
+    private var loginJob: Job = Job()
+    private val loginViewModel: LoginViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentRegisterBinding.inflate(inflater, container, false)
+        _binding = FragmentLoginBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -40,62 +42,62 @@ class RegisterFragment : Fragment() {
 
     private fun setActions(){
         binding.apply {
-            btnRegister.setOnClickListener {
-                doUserRegister()
+            btnLogin.setOnClickListener {
+                doUserLogin()
             }
-
-            tvLogin.setOnClickListener {
-                findNavController().popBackStack()
+            tvRegister.setOnClickListener {
+                val goToRegister = LoginFragmentDirections.actionLoginFragmentToRegisterFragment()
+                findNavController().navigate(goToRegister)
             }
         }
     }
 
-    private fun doUserRegister() {
+    private fun doUserLogin(){
         showLoading(isLoading = true)
         var isAllFieldValid = true
 
         if (binding.edtEmail.text.isNullOrBlank() || !binding.edtEmail.error.isNullOrEmpty())
             isAllFieldValid = false
 
-        if (binding.edtFullname.text.isNullOrBlank() || !binding.edtFullname.error.isNullOrEmpty())
-            isAllFieldValid = false
-
         if (binding.edtPassword.text.isNullOrBlank() || !binding.edtPassword.error.isNullOrEmpty())
             isAllFieldValid = false
 
+
+        val email = binding.edtEmail.text.toString().trim()
+        val password = binding.edtPassword.text.toString()
+
+        if (loginJob.isActive) loginJob.cancel()
+
         if (isAllFieldValid) {
-            val email = binding.edtEmail.text.toString().trim()
-            val name = binding.edtFullname.text.toString()
-            val password = binding.edtPassword.text.toString()
-
             viewLifecycleOwner.lifecycleScope.launchWhenResumed {
-                if (registerJob.isActive) registerJob.cancel()
+                loginJob = launch {
+                    loginViewModel.userLogin(email = email, password = password).collect { result ->
+                        result.onSuccess { loginResponse ->
+                            loginResponse.loginResult?.token?.let { token ->
+                                loginViewModel.saveAuthenticationToken(token = token)
 
-                registerJob = launch {
-                    registerViewModel.registerUser(name = name, email = email, password = password)
-                        .collect { result ->
-                            result.onSuccess {
                                 showLoading(isLoading = false)
                                 Snackbar.make(
                                     binding.root,
-                                    getString(R.string.success_register),
+                                    getString(R.string.success_login),
                                     Snackbar.LENGTH_SHORT
                                 ).show()
 
-                                val goToLogin =
-                                    RegisterFragmentDirections.actionRegisterFragmentToLoginFragment()
-                                findNavController().navigate(goToLogin)
-                            }
-
-                            result.onFailure {
-                                showLoading(isLoading = false)
-                                Snackbar.make(
-                                    binding.root,
-                                    getString(R.string.error_while_register),
-                                    Snackbar.LENGTH_SHORT
-                                ).show()
+                                val goToStory =
+                                    LoginFragmentDirections.actionLoginFragmentToStoryFragment()
+                                findNavController().navigate(goToStory)
                             }
                         }
+
+                        result.onFailure {
+                            showLoading(isLoading = false)
+                            Snackbar.make(
+                                binding.root,
+                                getString(R.string.error_while_login),
+                                Snackbar.LENGTH_SHORT
+                            ).show()
+                        }
+                    }
                 }
             }
         } else {
@@ -112,7 +114,6 @@ class RegisterFragment : Fragment() {
         binding.apply {
             edtEmail.isEnabled = !isLoading
             edtPassword.isEnabled = !isLoading
-            edtFullname.isEnabled = !isLoading
 
             layoutLoading.root.animateVisibility(isLoading)
         }

@@ -1,4 +1,4 @@
-package com.rivaldofez.storymessage.splash
+package com.rivaldofez.storymessage.page.splash
 
 import androidx.lifecycle.ViewModel
 import com.rivaldofez.storymessage.data.remote.AuthenticationRepository

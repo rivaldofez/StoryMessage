@@ -1,4 +1,4 @@
-package com.rivaldofez.storymessage.addstory
+package com.rivaldofez.storymessage.page.addstory
 
 import android.app.Activity.RESULT_OK
 import android.content.Intent
@@ -23,9 +23,9 @@ import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.load.resource.bitmap.TransformationUtils
 import com.google.android.material.snackbar.Snackbar
 import com.rivaldofez.storymessage.R
-import com.rivaldofez.storymessage.Utils.MediaUtility
-import com.rivaldofez.storymessage.Utils.MediaUtility.reduceFileImage
-import com.rivaldofez.storymessage.Utils.MediaUtility.uriToFile
+import com.rivaldofez.storymessage.util.MediaUtility
+import com.rivaldofez.storymessage.util.MediaUtility.reduceFileImage
+import com.rivaldofez.storymessage.util.MediaUtility.uriToFile
 import com.rivaldofez.storymessage.databinding.FragmentAddStoryBinding
 import com.rivaldofez.storymessage.extension.animateVisibility
 import dagger.hilt.android.AndroidEntryPoint

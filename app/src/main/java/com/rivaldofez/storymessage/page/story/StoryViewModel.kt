@@ -1,23 +1,29 @@
-package com.rivaldofez.storymessage.addstory
+package com.rivaldofez.storymessage.page.story
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.rivaldofez.storymessage.data.remote.AuthenticationRepository
 import com.rivaldofez.storymessage.data.remote.StoryRepository
-import com.rivaldofez.storymessage.data.remote.response.AddStoryResponse
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
-import okhttp3.MultipartBody
-import okhttp3.RequestBody
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class AddStoryViewModel @Inject constructor(
+class StoryViewModel @Inject constructor(
     private val authenticationRepository: AuthenticationRepository,
     private val storyRepository: StoryRepository
 ): ViewModel() {
 
-    suspend fun addStory(token: String, file: MultipartBody.Part, description: RequestBody):
-            Flow<Result<AddStoryResponse>> = storyRepository.addStory(token = token, file = file, description = description)
+    suspend fun getStories(token: String, page: Int? = null, size: Int? = null) =
+        storyRepository.getStories(token = token, page = page, size = size)
 
     fun getAuthenticationToken(): Flow<String?> = authenticationRepository.getAuthenticationToken()
+
+    fun saveAuthenticationToken(token: String){
+        viewModelScope.launch {
+            authenticationRepository.saveAuthenticationToken(token = token)
+        }
+    }
+
 }

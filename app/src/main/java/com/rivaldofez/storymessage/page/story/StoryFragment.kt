@@ -1,4 +1,4 @@
-package com.rivaldofez.storymessage.story
+package com.rivaldofez.storymessage.page.story
 
 import android.app.Dialog
 import android.content.Intent
@@ -27,6 +27,7 @@ import com.rivaldofez.storymessage.databinding.DialogConfirmationBinding
 import com.rivaldofez.storymessage.databinding.FragmentStoryBinding
 import com.rivaldofez.storymessage.databinding.ItemStoryBinding
 import com.rivaldofez.storymessage.extension.animateVisibility
+import com.rivaldofez.storymessage.story.StoryFragmentDirections
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 

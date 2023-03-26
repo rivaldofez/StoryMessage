@@ -1,4 +1,4 @@
-package com.rivaldofez.storymessage.login
+package com.rivaldofez.storymessage.page.login
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

@@ -47,7 +47,7 @@ class PasswordEditText: AppCompatEditText {
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 if (!p0.isNullOrEmpty() && p0.length < 6 ){
-                    error = "Password length minimum 6"
+                    error = context.getString(R.string.field_password_error)
                 }
             }
 

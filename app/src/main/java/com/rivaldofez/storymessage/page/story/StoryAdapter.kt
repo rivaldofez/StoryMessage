@@ -1,4 +1,4 @@
-package com.rivaldofez.storymessage.story
+package com.rivaldofez.storymessage.page.story
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -11,7 +11,9 @@ import com.rivaldofez.storymessage.databinding.ItemStoryBinding
 import com.rivaldofez.storymessage.extension.setImageFromUrl
 import com.rivaldofez.storymessage.extension.setLocaleDateFormat
 
-class StoryAdapter (private val callback: StoryItemCallback): ListAdapter<StoryResponse, StoryAdapter.ViewHolder>(DiffCallback) {
+class StoryAdapter (private val callback: StoryItemCallback): ListAdapter<StoryResponse, StoryAdapter.ViewHolder>(
+    DiffCallback
+) {
 
     inner class ViewHolder(private val binding: ItemStoryBinding) :
         RecyclerView.ViewHolder(binding.root) {

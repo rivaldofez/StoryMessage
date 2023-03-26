@@ -1,4 +1,4 @@
-package com.rivaldofez.storymessage.splash
+package com.rivaldofez.storymessage.page.splash
 
 import android.os.Bundle
 import android.os.Handler
@@ -10,9 +10,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import com.bumptech.glide.Glide
-import com.rivaldofez.storymessage.R
 import com.rivaldofez.storymessage.databinding.FragmentSplashBinding
+import com.rivaldofez.storymessage.splash.SplashFragmentDirections
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -35,7 +34,6 @@ class SplashFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        Glide.with(requireActivity()).load(R.drawable.logo).into(binding.imgLogo)
         Handler(Looper.getMainLooper()).postDelayed({
             checkUserSession()
         }, 3000)
@@ -46,10 +44,12 @@ class SplashFragment : Fragment() {
             launch {
                 splashViewModel.getAuthenticationToken().collect { token ->
                     if (token.isNullOrEmpty()) {
-                        val goToLogin = SplashFragmentDirections.actionSplashFragmentToLoginFragment()
+                        val goToLogin =
+                            SplashFragmentDirections.actionSplashFragmentToLoginFragment()
                         findNavController().navigate(goToLogin)
                     } else {
-                        val goToStory = SplashFragmentDirections.actionSplashFragmentToStoryFragment()
+                        val goToStory =
+                            SplashFragmentDirections.actionSplashFragmentToStoryFragment()
                         findNavController().navigate(goToStory)
                     }
                 }

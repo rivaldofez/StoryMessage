@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.rivaldofez.storymessage.login.LoginFragment"
+        android:name="com.rivaldofez.storymessage.page.login.LoginFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" >
         <action
@@ -21,7 +21,7 @@
     </fragment>
     <fragment
         android:id="@+id/registerFragment"
-        android:name="com.rivaldofez.storymessage.register.RegisterFragment"
+        android:name="com.rivaldofez.storymessage.page.register.RegisterFragment"
         android:label="fragment_register"
         tools:layout="@layout/fragment_register" >
         <action
@@ -30,7 +30,7 @@
     </fragment>
     <fragment
         android:id="@+id/splashFragment"
-        android:name="com.rivaldofez.storymessage.splash.SplashFragment"
+        android:name="com.rivaldofez.storymessage.page.splash.SplashFragment"
         android:label="fragment_splash"
         tools:layout="@layout/fragment_splash" >
         <action
@@ -48,7 +48,7 @@
     </fragment>
     <fragment
         android:id="@+id/storyFragment"
-        android:name="com.rivaldofez.storymessage.story.StoryFragment"
+        android:name="com.rivaldofez.storymessage.page.story.StoryFragment"
         android:label="fragment_story"
         tools:layout="@layout/fragment_story" >
         <action
@@ -68,7 +68,7 @@
     </fragment>
     <fragment
         android:id="@+id/detailStoryFragment"
-        android:name="com.rivaldofez.storymessage.detailstory.DetailStoryFragment"
+        android:name="com.rivaldofez.storymessage.page.detailstory.DetailStoryFragment"
         android:label="fragment_detail_story"
         tools:layout="@layout/fragment_detail_story" >
         <action
@@ -82,7 +82,7 @@
     </fragment>
     <fragment
         android:id="@+id/addStoryFragment"
-        android:name="com.rivaldofez.storymessage.addstory.AddStoryFragment"
+        android:name="com.rivaldofez.storymessage.page.addstory.AddStoryFragment"
         android:label="fragment_add_story"
         tools:layout="@layout/fragment_add_story" >
         <action

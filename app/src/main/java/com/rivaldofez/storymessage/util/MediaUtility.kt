@@ -1,4 +1,4 @@
-package com.rivaldofez.storymessage.Utils
+package com.rivaldofez.storymessage.util
 
 import android.content.ContentResolver
 import android.content.Context
@@ -45,7 +45,6 @@ object MediaUtility {
         var compressQuality = 100
         var streamLength: Int
 
-        // Repeat until the file size under 1MB
         do {
             val bmpStream = ByteArrayOutputStream()
             bitmap.compress(Bitmap.CompressFormat.JPEG, compressQuality, bmpStream)

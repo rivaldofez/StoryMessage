@@ -1,4 +1,4 @@
-package com.rivaldofez.storymessage.register
+package com.rivaldofez.storymessage.page.register
 
 import androidx.lifecycle.ViewModel
 import com.rivaldofez.storymessage.data.remote.AuthenticationRepository

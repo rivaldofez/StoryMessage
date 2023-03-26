@@ -1,4 +1,4 @@
-package com.rivaldofez.storymessage.detailstory
+package com.rivaldofez.storymessage.page.detailstory
 
 import android.graphics.drawable.Drawable
 import android.os.Bundle
@@ -17,6 +17,7 @@ import com.bumptech.glide.request.target.Target
 import com.rivaldofez.storymessage.R
 import com.rivaldofez.storymessage.data.remote.response.StoryResponse
 import com.rivaldofez.storymessage.databinding.FragmentDetailStoryBinding
+import com.rivaldofez.storymessage.detailstory.DetailStoryFragmentArgs
 import com.rivaldofez.storymessage.extension.setLocaleDateFormat
 
 class DetailStoryFragment : Fragment(){

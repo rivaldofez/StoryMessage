@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/bgColor"
-    tools:context=".detailstory.DetailStoryFragment">
+    tools:context=".page.detailstory.DetailStoryFragment">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar_detail_story"

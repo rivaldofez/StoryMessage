@@ -6,18 +6,18 @@
     <string name="login">Login</string>
     <string name="register">Register</string>
     <string name="fullname">Fullname</string>
-    <string name="title_register">Hello, let\'s create account</string>
-    <string name="title_register_description">Explore all of student\'s experience and story when learning in Dicoding, and of course you can also share your story too✍</string>
-    <string name="title_login">Hello, let\'s sign in</string>
-    <string name="title_login_description">Explore all of student\'s experience and story when learning in Dicoding, and of course you can also share your story too✍</string>
+    <string name="title_register">Let\'s create an account</string>
+    <string name="title_register_description">Unlock all access in this apps with your account and share you lovely story✍</string>
+    <string name="title_login">Let\'s sign in</string>
+    <string name="title_login_description">Explore all experience and story of student\'s in Dicoding, and of course you can share your story too✍</string>
     <string name="register_to_login_intro">Already have an account?</string>
-    <string name="login_to_register_intro">New user?</string>
+    <string name="login_to_register_intro">First time using this apps?</string>
     <string name="error_while_register">Error occurred while register, please try again</string>
     <string name="error_field_not_valid">All field must be valid and filled, please try again</string>
-    <string name="success_register">Registration Success</string>
+    <string name="success_register">Registration Succeeds</string>
     <string name="error_while_login">Error occurred while login, please try again</string>
-    <string name="success_login">Login Success</string>
-    <string name="dialog_confirmation_logout">Are you sure to logout?</string>
+    <string name="success_login">Login Succeeds</string>
+    <string name="dialog_confirmation_logout">Are you sure want to logout?</string>
     <string name="cd_button_add">Add story</string>
     <string name="stories">Stories</string>
     <string name="error_while_fetch_stories">Error occurred while fetch stories data, please try again</string>
@@ -26,15 +26,23 @@
     <string name="cd_item_story">Image of story</string>
     <string name="cd_button_gallery">Add from gallery</string>
     <string name="cd_button_camera">Add image from camera</string>
-    <string name="title_select_image">Select Image From:</string>
+    <string name="title_select_image">Select image from:</string>
     <string name="title_write_story">Write your story:</string>
     <string name="hint_add_story_text">Once upon a time…</string>
     <string name="dialog_choose_an_image">Choose an Image</string>
     <string name="title_add_story">Add Story</string>
     <string name="field_story_error">Story field cannot be empty</string>
+    <string name="field_email_error">Email format is invalid</string>
+    <string name="field_password_error">Password length minimum is 6 character</string>
     <string name="error_while_upload_story">Error occurred while upload stories data, please try again</string>
-    <string name="success_upload_story">Upload Story Succeed</string>
+    <string name="success_upload_story">Add Story Succeeds</string>
     <string name="detail_toolbar_title">%s\'s Story</string>
-
-
+    <string name="title_menu_settings">Setting</string>
+    <string name="title_menu_language">Language</string>
+    <string name="title_menu_theme_default">Default System</string>
+    <string name="title_menu_theme_dark">Dark Mode</string>
+    <string name="title_menu_theme_light">Light Mode</string>
+    <string name="title_menu_logout">Logout</string>
+    <string name="title_menu_theme">Theme</string>
+    <string name="save">Save</string>
 </resources>

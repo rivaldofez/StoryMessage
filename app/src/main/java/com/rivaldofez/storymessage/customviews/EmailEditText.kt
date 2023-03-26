@@ -47,7 +47,7 @@ class EmailEditText: AppCompatEditText {
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 if (!p0.isNullOrEmpty() && !Patterns.EMAIL_ADDRESS.matcher(p0).matches()){
-                    error = "Email address is not valid"
+                    error = context.getString(R.string.field_email_error)
                 }
             }
 
