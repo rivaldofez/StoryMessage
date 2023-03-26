@@ -39,7 +39,7 @@ class PasswordEditText: AppCompatEditText {
         inputType = InputType.TYPE_TEXT_VARIATION_PASSWORD
         compoundDrawablePadding = 16
 
-        setHint(R.string.edt_title_password)
+        setHint(R.string.password)
         setDrawable(iconPasswordDrawable)
 
         addTextChangedListener(object : TextWatcher {

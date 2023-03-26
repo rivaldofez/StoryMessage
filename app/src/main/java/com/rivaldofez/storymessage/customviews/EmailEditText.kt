@@ -38,7 +38,7 @@ class EmailEditText: AppCompatEditText {
         inputType = InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS
         compoundDrawablePadding = 16
 
-        setHint(R.string.edt_title_email)
+        setHint(R.string.email)
         setAutofillHints(AUTOFILL_HINT_EMAIL_ADDRESS)
         setDrawable(iconEmailDrawable)
 
