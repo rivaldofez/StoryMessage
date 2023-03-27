@@ -28,6 +28,7 @@ import com.rivaldofez.storymessage.databinding.FragmentStoryBinding
 import com.rivaldofez.storymessage.databinding.ItemStoryBinding
 import com.rivaldofez.storymessage.extension.animateVisibility
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -129,10 +130,12 @@ class StoryFragment : Fragment(), StoryItemCallback {
             tvDialogMessage.text = message
 
             btnYes.setOnClickListener {
-                storyViewModel.saveAuthenticationToken(token = "")
-                val goToLogin = StoryFragmentDirections.actionStoryFragmentToLoginFragment()
-                findNavController().navigate(goToLogin)
-                dialog.dismiss()
+                Dispatchers.Main.apply {
+                    storyViewModel.removeAuthenticationToken()
+                    dialog.dismiss()
+                    val goToLogin = StoryFragmentDirections.actionStoryFragmentToLoginFragment()
+                    findNavController().navigate(goToLogin)
+                }
             }
 
             btnNo.setOnClickListener {

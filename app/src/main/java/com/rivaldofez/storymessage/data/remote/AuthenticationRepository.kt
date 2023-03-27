@@ -38,5 +38,9 @@ class AuthenticationRepository @Inject constructor(
         authenticationLocalDataSource.saveAuthenticationToken(token)
     }
 
+    suspend fun removeAuthenticationToken(){
+        authenticationLocalDataSource.removeAuthenticationToken()
+    }
+
     fun getAuthenticationToken(): Flow<String?> = authenticationLocalDataSource.getAuthenticationToken()
 }
