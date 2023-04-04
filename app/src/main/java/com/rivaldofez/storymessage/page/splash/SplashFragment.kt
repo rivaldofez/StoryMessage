@@ -41,15 +41,17 @@ class SplashFragment : Fragment() {
             launch {
                 splashViewModel.getAuthenticationToken().collect { token ->
                     delay(3000)
-                    if (token.isNullOrEmpty()) {
-                        val goToLogin =
-                            SplashFragmentDirections.actionSplashFragmentToLoginFragment()
-                        findNavController().navigate(goToLogin)
-                    } else {
-                        val goToStory =
-                            SplashFragmentDirections.actionSplashFragmentToStoryFragment()
-                        findNavController().navigate(goToStory)
-                    }
+                    val goToMaps = SplashFragmentDirections.actionSplashFragmentToMapsFragment()
+                    findNavController().navigate(goToMaps)
+//                    if (token.isNullOrEmpty()) {
+//                        val goToLogin =
+//                            SplashFragmentDirections.actionSplashFragmentToLoginFragment()
+//                        findNavController().navigate(goToLogin)
+//                    } else {
+//                        val goToStory =
+//                            SplashFragmentDirections.actionSplashFragmentToStoryFragment()
+//                        findNavController().navigate(goToStory)
+//                    }
                 }
             }
         }
