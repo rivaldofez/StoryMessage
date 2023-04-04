@@ -20,9 +20,9 @@ class StoryViewModel @Inject constructor(
 
     fun getAuthenticationToken(): Flow<String?> = authenticationRepository.getAuthenticationToken()
 
-    fun saveAuthenticationToken(token: String){
+    fun removeAuthenticationToken(){
         viewModelScope.launch {
-            authenticationRepository.saveAuthenticationToken(token = token)
+            authenticationRepository.removeAuthenticationToken()
         }
     }
 

@@ -22,6 +22,12 @@ class AuthenticationLocalDataSource @Inject constructor(private val dataStore: D
         }
     }
 
+    suspend fun removeAuthenticationToken(){
+        dataStore.edit { preferences ->
+            preferences.clear()
+        }
+    }
+
     companion object {
         private val TOKEN_KEY = stringPreferencesKey("token_key")
     }
