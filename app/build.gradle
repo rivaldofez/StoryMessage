@@ -83,4 +83,7 @@ dependencies {
     def lottie_version = "3.4.0"
     implementation "com.airbnb.android:lottie:$lottie_version"
 
+    def animated_bottom_bar_version = "1.1.0"
+    implementation "nl.joery.animatedbottombar:library:$animated_bottom_bar_version"
+
 }
