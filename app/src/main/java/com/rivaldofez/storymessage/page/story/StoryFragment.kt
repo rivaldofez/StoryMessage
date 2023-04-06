@@ -18,10 +18,14 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
+import androidx.paging.ExperimentalPagingApi
+import androidx.paging.PagingData
+import androidx.paging.map
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
 import com.rivaldofez.storymessage.R
+import com.rivaldofez.storymessage.data.local.entity.StoryEntity
 import com.rivaldofez.storymessage.data.remote.response.StoryResponse
 import com.rivaldofez.storymessage.databinding.DialogConfirmationBinding
 import com.rivaldofez.storymessage.databinding.FragmentStoryBinding
@@ -31,6 +35,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
+@ExperimentalPagingApi
 @AndroidEntryPoint
 class StoryFragment : Fragment(), StoryItemCallback {
     private var _binding: FragmentStoryBinding? = null
@@ -153,24 +158,28 @@ class StoryFragment : Fragment(), StoryItemCallback {
 
     private fun getStories(){
 
-        viewLifecycleOwner.lifecycleScope.launch{
-            binding.srlStory.isRefreshing = true
-            lifecycle.repeatOnLifecycle(Lifecycle.State.RESUMED) {
-                storyViewModel.getStories(token = token).collect { result ->
-                    result.onSuccess { storiesResponse ->
-                        updateRecyclerViewStoryData(stories = storiesResponse.stories)
-                        binding.srlStory.isRefreshing = false
-                        showError(storiesResponse.stories.isEmpty())
-                    }
-
-                    result.onFailure {
-                        Snackbar.make(binding.root, getString(R.string.error_while_fetch_stories), Snackbar.LENGTH_SHORT).show()
-                        showError(true)
-                        binding.srlStory.isRefreshing = false
-                    }
-                }
-            }
+        storyViewModel.getStories(token = token).observe(viewLifecycleOwner) { result ->
+            updateRecyclerViewStoryData(result)
         }
+
+//        viewLifecycleOwner.lifecycleScope.launch{
+//            binding.srlStory.isRefreshing = true
+//            lifecycle.repeatOnLifecycle(Lifecycle.State.RESUMED) {
+//                storyViewModel.getStories(token = token).collect { result ->
+//                    result.onSuccess { storiesResponse ->
+//                        updateRecyclerViewStoryData(stories = storiesResponse.stories)
+//                        binding.srlStory.isRefreshing = false
+//                        showError(storiesResponse.stories.isEmpty())
+//                    }
+//
+//                    result.onFailure {
+//                        Snackbar.make(binding.root, getString(R.string.error_while_fetch_stories), Snackbar.LENGTH_SHORT).show()
+//                        showError(true)
+//                        binding.srlStory.isRefreshing = false
+//                    }
+//                }
+//            }
+//        }
     }
 
     private fun showError(isError: Boolean){
@@ -178,9 +187,9 @@ class StoryFragment : Fragment(), StoryItemCallback {
             binding.rvStory.animateVisibility(!isError)
     }
 
-    private fun updateRecyclerViewStoryData(stories: List<StoryResponse>){
+    private fun updateRecyclerViewStoryData(stories: PagingData<StoryEntity>){
         val recyclerViewState = storyRecyclerView.layoutManager?.onSaveInstanceState()
-        storyAdapter.submitList(stories)
+        storyAdapter.submitData(lifecycle, stories)
         storyRecyclerView.layoutManager?.onRestoreInstanceState(recyclerViewState)
     }
 
@@ -200,7 +209,7 @@ class StoryFragment : Fragment(), StoryItemCallback {
         _binding = null
     }
 
-    override fun onStoryClicked(story: StoryResponse, itemBinding: ItemStoryBinding) {
+    override fun onStoryClicked(story: StoryEntity, itemBinding: ItemStoryBinding) {
         itemBinding.apply {
             val goToDetailStory = StoryFragmentDirections.actionStoryFragmentToDetailStoryFragment()
             goToDetailStory.story = story

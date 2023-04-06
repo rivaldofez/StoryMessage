@@ -20,6 +20,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.paging.ExperimentalPagingApi
 import com.bumptech.glide.load.resource.bitmap.TransformationUtils
 import com.google.android.material.snackbar.Snackbar
 import com.rivaldofez.storymessage.R
@@ -40,6 +41,7 @@ import java.io.File
 import java.io.FileOutputStream
 import java.io.OutputStream
 
+@ExperimentalPagingApi
 @AndroidEntryPoint
 class AddStoryFragment : Fragment() {
 

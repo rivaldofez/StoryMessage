@@ -110,7 +110,7 @@
             app:popExitAnim="@android:anim/fade_out" />
         <argument
             android:name="story"
-            app:argType="com.rivaldofez.storymessage.data.remote.response.StoryResponse"
+            app:argType="com.rivaldofez.storymessage.data.local.entity.StoryEntity"
             app:nullable="true"
             android:defaultValue="@null" />
     </fragment>

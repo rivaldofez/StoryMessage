@@ -3,21 +3,24 @@ package com.rivaldofez.storymessage.page.story
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.paging.PagingData
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.rivaldofez.storymessage.data.local.entity.StoryEntity
 import com.rivaldofez.storymessage.data.remote.response.StoryResponse
 import com.rivaldofez.storymessage.databinding.ItemStoryBinding
 import com.rivaldofez.storymessage.extension.setImageFromUrl
 import com.rivaldofez.storymessage.extension.setLocaleDateFormat
 
-class StoryAdapter (private val callback: StoryItemCallback): ListAdapter<StoryResponse, StoryAdapter.ViewHolder>(
+class StoryAdapter (private val callback: StoryItemCallback): PagingDataAdapter<StoryEntity, StoryAdapter.ViewHolder>(
     DiffCallback
 ) {
 
     inner class ViewHolder(private val binding: ItemStoryBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(context: Context, story: StoryResponse) {
+        fun bind(context: Context, story: StoryEntity) {
             binding.apply {
                 tvName.text = story.name.lowercase().replaceFirstChar { it.titlecase() }
                 tvDescription.text = story.description
@@ -31,18 +34,6 @@ class StoryAdapter (private val callback: StoryItemCallback): ListAdapter<StoryR
         }
     }
 
-    companion object {
-        private val DiffCallback = object : DiffUtil.ItemCallback<StoryResponse>() {
-            override fun areItemsTheSame(oldItem: StoryResponse, newItem: StoryResponse): Boolean {
-                return oldItem.id == newItem.id
-            }
-
-            override fun areContentsTheSame(oldItem: StoryResponse, newItem: StoryResponse): Boolean {
-                return oldItem == newItem
-            }
-        }
-    }
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = ItemStoryBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
@@ -50,6 +41,21 @@ class StoryAdapter (private val callback: StoryItemCallback): ListAdapter<StoryR
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val story = getItem(position)
-        holder.bind(holder.itemView.context, story)
+        if (story != null) {
+            holder.bind(holder.itemView.context, story)
+        }
+
+    }
+
+    companion object {
+        private val DiffCallback = object : DiffUtil.ItemCallback<StoryEntity>() {
+            override fun areItemsTheSame(oldItem: StoryEntity, newItem: StoryEntity): Boolean {
+                return oldItem.id == newItem.id
+            }
+
+            override fun areContentsTheSame(oldItem: StoryEntity, newItem: StoryEntity): Boolean {
+                return oldItem == newItem
+            }
+        }
     }
 }

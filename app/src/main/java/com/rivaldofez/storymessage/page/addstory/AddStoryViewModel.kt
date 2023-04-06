@@ -1,6 +1,7 @@
 package com.rivaldofez.storymessage.page.addstory
 
 import androidx.lifecycle.ViewModel
+import androidx.paging.ExperimentalPagingApi
 import com.rivaldofez.storymessage.data.AuthenticationRepository
 import com.rivaldofez.storymessage.data.StoryRepository
 import com.rivaldofez.storymessage.data.remote.response.AddStoryResponse
@@ -10,6 +11,7 @@ import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import javax.inject.Inject
 
+@ExperimentalPagingApi
 @HiltViewModel
 class AddStoryViewModel @Inject constructor(
     private val authenticationRepository: AuthenticationRepository,
