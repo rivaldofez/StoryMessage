@@ -18,8 +18,12 @@ class AddStoryViewModel @Inject constructor(
     private val storyRepository: StoryRepository
 ): ViewModel() {
 
-    suspend fun addStory(token: String, file: MultipartBody.Part, description: RequestBody):
-            Flow<Result<AddStoryResponse>> = storyRepository.addStory(token = token, file = file, description = description)
+    suspend fun addStory(token: String,
+                         file: MultipartBody.Part,
+                         description: RequestBody,
+                         lat: RequestBody?,
+                         lon: RequestBody?
+    ): Flow<Result<AddStoryResponse>> = storyRepository.addStory(token = token, file = file, description = description, lat = lat, lon = lon)
 
     fun getAuthenticationToken(): Flow<String?> = authenticationRepository.getAuthenticationToken()
 }

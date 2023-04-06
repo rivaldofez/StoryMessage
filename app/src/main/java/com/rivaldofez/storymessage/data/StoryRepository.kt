@@ -45,11 +45,15 @@ class StoryRepository @Inject constructor(
     }
 
 
-    suspend fun addStory(token: String, file: MultipartBody.Part, description: RequestBody)
-    : Flow<Result<AddStoryResponse>> = flow {
+    suspend fun addStory(token: String,
+                         file: MultipartBody.Part,
+                         description: RequestBody,
+                         lat: RequestBody?,
+                         lon: RequestBody?
+    ) : Flow<Result<AddStoryResponse>> = flow {
         try {
             val bearerToken = "Bearer $token"
-            val response = apiService.addStory(token = bearerToken, file = file, description = description)
+            val response = apiService.addStory(token = bearerToken, file = file, description = description, lat = lat, lon = lon)
             emit(Result.success(response))
         } catch (e: Exception){
             e.printStackTrace()
