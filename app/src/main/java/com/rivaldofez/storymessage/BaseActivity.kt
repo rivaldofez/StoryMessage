@@ -39,7 +39,6 @@ class BaseActivity : AppCompatActivity() {
                     else -> navController?.navigate(R.id.storyFragment)
 
                 }
-
             }
         })
     }

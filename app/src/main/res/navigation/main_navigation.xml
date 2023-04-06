@@ -129,7 +129,7 @@
     </fragment>
     <fragment
         android:id="@+id/mapsFragment"
-        android:name="com.rivaldofez.storymessage.maps.MapsFragment"
+        android:name="com.rivaldofez.storymessage.page.maps.MapsFragment"
         android:label="fragment_maps"
         tools:layout="@layout/fragment_maps" />
 </navigation>

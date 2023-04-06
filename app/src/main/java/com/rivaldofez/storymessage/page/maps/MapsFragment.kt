@@ -1,4 +1,4 @@
-package com.rivaldofez.storymessage.maps
+package com.rivaldofez.storymessage.page.maps
 
 import androidx.fragment.app.Fragment
 
