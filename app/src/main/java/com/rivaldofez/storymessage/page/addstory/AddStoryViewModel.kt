@@ -1,8 +1,8 @@
 package com.rivaldofez.storymessage.page.addstory
 
 import androidx.lifecycle.ViewModel
-import com.rivaldofez.storymessage.data.remote.AuthenticationRepository
-import com.rivaldofez.storymessage.data.remote.StoryRepository
+import com.rivaldofez.storymessage.data.AuthenticationRepository
+import com.rivaldofez.storymessage.data.StoryRepository
 import com.rivaldofez.storymessage.data.remote.response.AddStoryResponse
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow

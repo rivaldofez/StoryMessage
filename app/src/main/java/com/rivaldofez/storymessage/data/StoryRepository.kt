@@ -1,5 +1,6 @@
-package com.rivaldofez.storymessage.data.remote
+package com.rivaldofez.storymessage.data
 
+import com.rivaldofez.storymessage.data.remote.ApiService
 import com.rivaldofez.storymessage.data.remote.response.AddStoryResponse
 import com.rivaldofez.storymessage.data.remote.response.StoriesResponse
 import kotlinx.coroutines.Dispatchers

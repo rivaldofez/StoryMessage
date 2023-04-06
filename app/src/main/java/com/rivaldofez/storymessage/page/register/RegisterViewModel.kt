@@ -1,7 +1,7 @@
 package com.rivaldofez.storymessage.page.register
 
 import androidx.lifecycle.ViewModel
-import com.rivaldofez.storymessage.data.remote.AuthenticationRepository
+import com.rivaldofez.storymessage.data.AuthenticationRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
