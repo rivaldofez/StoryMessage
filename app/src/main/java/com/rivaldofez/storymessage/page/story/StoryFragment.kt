@@ -19,6 +19,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.paging.ExperimentalPagingApi
+import androidx.paging.LoadState
 import androidx.paging.PagingData
 import androidx.paging.map
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -197,11 +198,37 @@ class StoryFragment : Fragment(), StoryItemCallback {
         val linearLayoutManager = LinearLayoutManager(requireContext())
         storyAdapter = StoryAdapter(this)
 
-        storyRecyclerView = binding.rvStory
-        storyRecyclerView.apply {
-            adapter = storyAdapter
-            layoutManager = linearLayoutManager
+        storyAdapter.addLoadStateListener { loadState ->
+            if(
+                (loadState.source.refresh is LoadState.NotLoading &&
+                 loadState.append.endOfPaginationReached &&
+                 storyAdapter.itemCount < 1) ||
+                    (loadState.source.refresh is LoadState.Error)
+            ) {
+                showError(isError = true)
+            } else {
+                showError(isError = false)
+            }
+
+            binding.srlStory.isRefreshing = loadState.source.refresh is LoadState.Loading
         }
+
+        try {
+            storyRecyclerView = binding.rvStory
+            storyRecyclerView.apply {
+                adapter = storyAdapter.withLoadStateFooter(
+                    footer = LoadingStateAdapter{
+                        storyAdapter.retry()
+                    }
+                )
+                layoutManager = linearLayoutManager
+            }
+        } catch (e: java.lang.NullPointerException){
+            e.printStackTrace()
+        }
+
+
+
     }
 
     override fun onDestroy() {
