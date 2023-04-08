@@ -34,9 +34,9 @@ class UserDataLocalDataSource @Inject constructor(private val dataStore: DataSto
         }
     }
 
-    suspend fun saveThemeSetting(theme: String){
+    suspend fun saveThemeSetting(themeId: Int){
         dataStore.edit { preferences ->
-            preferences[THEME_KEY] = theme
+            preferences[THEME_KEY] = themeId.toString()
         }
     }
 

@@ -43,8 +43,8 @@ class UserDataRepository @Inject constructor(
         userDataLocalDataSource.removeAuthenticationToken()
     }
 
-    suspend fun saveThemeSetting(theme: String){
-        userDataLocalDataSource.saveThemeSetting(theme)
+    suspend fun saveThemeSetting(themeId: Int){
+        userDataLocalDataSource.saveThemeSetting(themeId = themeId)
     }
 
     fun getAuthenticationToken(): Flow<String?> = userDataLocalDataSource.getAuthenticationToken()

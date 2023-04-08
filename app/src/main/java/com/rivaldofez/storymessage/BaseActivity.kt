@@ -6,7 +6,6 @@ import android.view.View
 import androidx.navigation.fragment.findNavController
 import com.rivaldofez.storymessage.databinding.ActivityBaseBinding
 import dagger.hilt.android.AndroidEntryPoint
-import nl.joery.animatedbottombar.AnimatedBottomBar
 
 @AndroidEntryPoint
 class BaseActivity : AppCompatActivity() {
@@ -27,19 +26,18 @@ class BaseActivity : AppCompatActivity() {
             }
         }
 
-        binding.bottomBar.setOnTabSelectListener(object : AnimatedBottomBar.OnTabSelectListener{
-            override fun onTabSelected(
-                lastIndex: Int,
-                lastTab: AnimatedBottomBar.Tab?,
-                newIndex: Int,
-                newTab: AnimatedBottomBar.Tab
-            ) {
-                when (newIndex) {
-                    0 -> navController?.navigate(R.id.storyFragment)
-                    1 -> navController?.navigate(R.id.mapsFragment)
-                    else -> navController?.navigate(R.id.settingsFragment)
+        binding.bottomBar.setOnItemSelectedListener { menuItem ->
+            when(menuItem){
+                R.id.home -> {
+                    navController?.navigate(R.id.storyFragment)
+                }
+                R.id.maps -> {
+                    navController?.navigate(R.id.mapsFragment)
+                }
+                R.id.settings -> {
+                    navController?.navigate(R.id.settingsFragment)
                 }
             }
-        })
+        }
     }
 }

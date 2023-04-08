@@ -13,5 +13,5 @@ class SettingsViewModel @Inject constructor(
 
     fun getThemeSetting(): Flow<String?> = userDataRepository.getThemeSetting()
 
-    suspend fun saveThemeSetting(theme: String) = userDataRepository.saveThemeSetting(theme = theme)
+    suspend fun saveThemeSetting(themeId: Int) = userDataRepository.saveThemeSetting(themeId = themeId)
 }
