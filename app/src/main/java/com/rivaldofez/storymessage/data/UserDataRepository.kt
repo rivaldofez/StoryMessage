@@ -24,10 +24,9 @@ class UserDataRepository @Inject constructor(
         }
     }.flowOn(Dispatchers.IO)
 
-    suspend fun userRegister(email: String, password: String, name: String
-    ): Flow<Result<RegisterResponse>> = flow {
+    suspend fun userRegister(name: String, email: String, password: String): Flow<Result<RegisterResponse>> = flow {
         try {
-            val response = apiService.userRegister(email = email, password = password, name = name)
+            val response = apiService.userRegister(name = name, email = email, password = password)
             emit(Result.success(response))
         } catch (e: Exception){
             e.printStackTrace()
