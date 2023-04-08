@@ -45,4 +45,19 @@
     <string name="title_menu_logout">Keluar</string>
     <string name="title_menu_theme">Tema</string>
     <string name="save">Simpan</string>
+    <string name="activate_location">Mohon aktifkan pengaturan lokasi mu</string>
+    <string name="story_user_placeholder">Ceritda dari %s</string>
+    <string name="error_loading_message">Tidak bisa memanggil daftar cerita</string>
+    <string name="settings">Pengaturan</string>
+    <string name="field_location">Bagikan Lokasi</string>
+    <string name="cd_spinner_theme">Pilih Jenis Tema</string>
+    <string name="icon_theme">Icon Tema</string>
+    <string name="click_to_see_story">Click untuk melihat..</string>
+    <string name="home">Home</string>
+    <string name="maps">Maps</string>
+    <string-array name="themes">
+        <item>Default System</item>
+        <item>Light Mode</item>
+        <item>Dark Mode</item>
+    </string-array>
 </resources>
