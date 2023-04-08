@@ -17,6 +17,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.StoryMessage"
         tools:targetApi="31">
+        <activity
+            android:name=".util.HiltTestActivity"
+            android:exported="false" />
 
         <!--
              TODO: Before you run your application, you need a Google Maps API key.

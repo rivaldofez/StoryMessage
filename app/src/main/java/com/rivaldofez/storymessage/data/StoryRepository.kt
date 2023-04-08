@@ -10,6 +10,7 @@ import com.rivaldofez.storymessage.data.remote.ApiService
 import com.rivaldofez.storymessage.data.remote.StoryRemoteMediator
 import com.rivaldofez.storymessage.data.remote.response.AddStoryResponse
 import com.rivaldofez.storymessage.data.remote.response.StoriesResponse
+import com.rivaldofez.storymessage.util.wrapEspressoIdlingResource
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import okhttp3.MultipartBody
@@ -32,13 +33,16 @@ class StoryRepository @Inject constructor(
     }
 
     fun getStoriesWithLocation(token: String): Flow<Result<StoriesResponse>> = flow {
-        try {
-            val bearerToken = generateBearerToken(token)
-            val response = apiService.getStories(token = bearerToken, size = 30, location = 1, page = null)
-            emit(Result.success(response))
-        } catch (e: Exception) {
-            e.printStackTrace()
-            emit(Result.failure(e))
+        wrapEspressoIdlingResource {
+            try {
+                val bearerToken = generateBearerToken(token)
+                val response =
+                    apiService.getStories(token = bearerToken, size = 30, location = 1, page = null)
+                emit(Result.success(response))
+            } catch (e: Exception) {
+                e.printStackTrace()
+                emit(Result.failure(e))
+            }
         }
     }
 
