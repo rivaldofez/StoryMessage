@@ -41,7 +41,6 @@ class StoryAdapter (private val callback: StoryItemCallback): PagingDataAdapter<
         if (story != null) {
             holder.bind(holder.itemView.context, story)
         }
-
     }
 
     companion object {
