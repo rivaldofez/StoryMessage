@@ -21,7 +21,6 @@ import androidx.navigation.fragment.findNavController
 import com.rivaldofez.storymessage.R
 import com.rivaldofez.storymessage.databinding.DialogConfirmationBinding
 import com.rivaldofez.storymessage.databinding.FragmentSettingsBinding
-import com.rivaldofez.storymessage.page.story.StoryFragmentDirections
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

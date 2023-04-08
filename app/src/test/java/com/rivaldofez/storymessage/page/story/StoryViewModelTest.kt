@@ -7,7 +7,6 @@ import androidx.paging.ExperimentalPagingApi
 import androidx.paging.PagingData
 import androidx.recyclerview.widget.ListUpdateCallback
 import com.rivaldofez.storymessage.data.local.entity.StoryEntity
-import com.rivaldofez.storymessage.util.DataDummy
 import com.rivaldofez.storymessage.utils.CoroutineTestRule
 import com.rivaldofez.storymessage.utils.PagedTestDataSource
 import com.rivaldofez.storymessage.utils.getOrAwaitValue
@@ -39,7 +38,7 @@ class StoryViewModelTest {
 
     @Test
     fun `Get all stories successfully`() = runTest {
-        val dummyStories = DataDummy.generateDummyListStory()
+        val dummyStories = com.rivaldofez.storymessage.utils.DataDummy.generateDummyListStory()
         val data = PagedTestDataSource.snapshot(dummyStories)
 
         val stories = MutableLiveData<PagingData<StoryEntity>>()

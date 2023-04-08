@@ -2,7 +2,7 @@ package com.rivaldofez.storymessage.page.register
 
 import com.rivaldofez.storymessage.data.UserDataRepository
 import com.rivaldofez.storymessage.data.remote.response.RegisterResponse
-import com.rivaldofez.storymessage.util.DataDummy
+import com.rivaldofez.storymessage.utils.DataDummy
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf

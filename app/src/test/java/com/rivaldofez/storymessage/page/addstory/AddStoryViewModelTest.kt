@@ -4,7 +4,7 @@ import androidx.paging.ExperimentalPagingApi
 import com.rivaldofez.storymessage.data.StoryRepository
 import com.rivaldofez.storymessage.data.UserDataRepository
 import com.rivaldofez.storymessage.data.remote.response.AddStoryResponse
-import com.rivaldofez.storymessage.util.DataDummy
+import com.rivaldofez.storymessage.utils.DataDummy
 import junit.framework.TestCase.assertEquals
 import junit.framework.TestCase.assertNotNull
 import kotlinx.coroutines.ExperimentalCoroutinesApi

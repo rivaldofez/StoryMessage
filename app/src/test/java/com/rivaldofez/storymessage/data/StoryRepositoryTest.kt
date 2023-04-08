@@ -7,7 +7,6 @@ import com.rivaldofez.storymessage.data.local.room.StoryDatabase
 import com.rivaldofez.storymessage.data.remote.ApiService
 import com.rivaldofez.storymessage.data.remote.response.StoriesResponse
 import com.rivaldofez.storymessage.page.story.StoryAdapter
-import com.rivaldofez.storymessage.util.DataDummy
 import com.rivaldofez.storymessage.utils.CoroutineTestRule
 import com.rivaldofez.storymessage.utils.PagedTestDataSource
 import junit.framework.TestCase.assertNotNull
@@ -44,9 +43,9 @@ class StoryRepositoryTest {
     private lateinit var storyRepository: StoryRepository
 
     private val dummyToken = "authentication_token"
-    private val dummyMultipart = DataDummy.generateDummyMultipartFile()
-    private val dummyDescription = DataDummy.generateDummyRequestBody()
-    private val dummyStoriesResponse = DataDummy.generateDummyStoriesResponse()
+    private val dummyMultipart = com.rivaldofez.storymessage.utils.DataDummy.generateDummyMultipartFile()
+    private val dummyDescription = com.rivaldofez.storymessage.utils.DataDummy.generateDummyRequestBody()
+    private val dummyStoriesResponse = com.rivaldofez.storymessage.utils.DataDummy.generateDummyStoriesResponse()
 
     @Before
     fun setup() {
@@ -55,7 +54,7 @@ class StoryRepositoryTest {
 
     @Test
     fun `Get stories with pager - successfully`() = runTest {
-        val dummyStories = DataDummy.generateDummyListStory()
+        val dummyStories = com.rivaldofez.storymessage.utils.DataDummy.generateDummyListStory()
         val data = PagedTestDataSource.snapshot(dummyStories)
 
         val expectedResult = flowOf(data)
@@ -117,7 +116,7 @@ class StoryRepositoryTest {
 
     @Test
     fun `Add story - successfully`() = runTest {
-        val expectedResponse = DataDummy.generateDummyFileUploadResponse()
+        val expectedResponse = com.rivaldofez.storymessage.utils.DataDummy.generateDummyFileUploadResponse()
 
         Mockito.`when`(
             apiService.addStory(

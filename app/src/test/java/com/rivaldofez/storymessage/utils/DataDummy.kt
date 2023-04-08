@@ -1,4 +1,4 @@
-package com.rivaldofez.storymessage.util
+package com.rivaldofez.storymessage.utils
 
 import com.rivaldofez.storymessage.data.local.entity.StoryEntity
 import com.rivaldofez.storymessage.data.remote.response.*
@@ -17,7 +17,7 @@ object DataDummy {
                 id = "story-FvU4u0Vp2S3PMsFg",
                 photoUrl = "https://story-api.dicoding.dev/images/stories/photos-1641623658595_dummy-pic.png",
                 createdAt = "2022-01-08T06:34:18.598Z",
-                name = "Dimas",
+                name = "Rivaldo",
                 description = "Lorem Ipsum",
                 lon = -16.002,
                 lat = -10.212
@@ -37,7 +37,7 @@ object DataDummy {
                 id = "story-FvU4u0Vp2S3PMsFg",
                 photoUrl = "https://story-api.dicoding.dev/images/stories/photos-1641623658595_dummy-pic.png",
                 createdAt = "2022-01-08T06:34:18.598Z",
-                name = "Dimas",
+                name = "Bertrand",
                 description = "Lorem Ipsum",
                 lon = -16.002,
                 lat = -10.212
@@ -51,7 +51,7 @@ object DataDummy {
     fun generateDummyLoginResponse(): LoginResponse {
         val loginResult = LoginResultResponse(
             userId = "user-yj5pc_LARC_AgK61",
-            name = "Arif Faizin",
+            name = "Cornelis",
             token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJ1c2VyLXlqNXBjX0xBUkNfQWdLNjEiLCJpYXQiOjE2NDE3OTk5NDl9.flEMaQ7zsdYkxuyGbiXjEDXO8kuDTcI__3UjCwt6R_I"
         )
 

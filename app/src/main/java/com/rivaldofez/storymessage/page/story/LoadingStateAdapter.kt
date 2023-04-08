@@ -1,11 +1,13 @@
 package com.rivaldofez.storymessage.page.story
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.paging.LoadState
 import androidx.paging.LoadStateAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.rivaldofez.storymessage.R
 import com.rivaldofez.storymessage.databinding.SubLoadingRecyclerBinding
 
 class LoadingStateAdapter(private val retry: () -> Unit): LoadStateAdapter<LoadingStateAdapter.LoadingStateViewHolder>() {
@@ -13,7 +15,7 @@ class LoadingStateAdapter(private val retry: () -> Unit): LoadStateAdapter<Loadi
         holder: LoadingStateAdapter.LoadingStateViewHolder,
         loadState: LoadState
     ) {
-        holder.bind(loadState)
+        holder.bind(holder.itemView.context, loadState)
     }
 
     override fun onCreateViewHolder(
@@ -30,9 +32,9 @@ class LoadingStateAdapter(private val retry: () -> Unit): LoadStateAdapter<Loadi
             binding.btnRetry.setOnClickListener { retry.invoke() }
         }
 
-        fun bind(loadState: LoadState){
+        fun bind(context: Context, loadState: LoadState){
             if (loadState is LoadState.Error){
-                binding.tvErrorMessage.text = "Unable to fetch stories data"
+                binding.tvErrorMessage.text = context.getString(R.string.error_loading_message)
             }
 
             binding.apply {

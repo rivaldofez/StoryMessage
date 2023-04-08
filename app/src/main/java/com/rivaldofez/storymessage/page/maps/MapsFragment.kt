@@ -2,13 +2,13 @@ package com.rivaldofez.storymessage.page.maps
 
 import android.Manifest
 import android.content.pm.PackageManager
+import android.content.res.Resources
 import androidx.fragment.app.Fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
@@ -22,8 +22,10 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MapStyleOptions
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.material.snackbar.Snackbar
 import com.rivaldofez.storymessage.R
 import com.rivaldofez.storymessage.data.local.entity.StoryEntity
 import com.rivaldofez.storymessage.data.remote.response.StoryResponse
@@ -35,7 +37,6 @@ import com.rivaldofez.storymessage.util.MediaUtility
 import com.rivaldofez.storymessage.util.wrapEspressoIdlingResource
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import java.lang.StringBuilder
 
 @ExperimentalPagingApi
 @AndroidEntryPoint
@@ -59,6 +60,14 @@ class MapsFragment : Fragment(), GoogleMap.InfoWindowAdapter {
             }
         }
 
+    private fun setMapStyle(styleResource: Int) {
+        try {
+            mMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(requireContext(), styleResource))
+        } catch (e: Resources.NotFoundException) {
+            e.printStackTrace()
+        }
+    }
+
     private val callback = OnMapReadyCallback { googleMap ->
         mMap = googleMap
         mMap.uiSettings.apply {
@@ -68,6 +77,7 @@ class MapsFragment : Fragment(), GoogleMap.InfoWindowAdapter {
         }
 
         getCurrentLocation()
+        setMapStyle(R.raw.style_map_light)
         mMap.setInfoWindowAdapter(this)
 
         mMap.setOnInfoWindowClickListener { marker ->
@@ -109,7 +119,7 @@ class MapsFragment : Fragment(), GoogleMap.InfoWindowAdapter {
                 wrapEspressoIdlingResource {
                 if (!token.isNullOrEmpty()){
                     this@MapsFragment.token = token
-                        setStoryMarker()
+                    setStoryMarker()
                     }
                 }
             }
@@ -128,7 +138,11 @@ class MapsFragment : Fragment(), GoogleMap.InfoWindowAdapter {
                     val latLng = LatLng(location.latitude, location.longitude)
                     mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 8f))
                 } else {
-                    Toast.makeText(requireContext(), "Aktifkan Lokasi", Toast.LENGTH_SHORT).show()
+                    Snackbar.make(
+                        binding.root,
+                        getString(R.string.activate_location),
+                        Snackbar.LENGTH_SHORT
+                    ).show()
                 }
             }
 
@@ -168,7 +182,7 @@ class MapsFragment : Fragment(), GoogleMap.InfoWindowAdapter {
         val data: StoryResponse = marker.tag as StoryResponse
 
         bindingItemMapWindow.tvLocation.text = LocationUtility.parseAddressLocation(requireContext(), marker.position.latitude, marker.position.longitude)
-        bindingItemMapWindow.tvName.text = StringBuilder("Story by ").append(data.name)
+        bindingItemMapWindow.tvName.text = getString(R.string.detail_toolbar_title, data.name.lowercase().replaceFirstChar { it.titlecase() })
         bindingItemMapWindow.tvDescription.text = data.description
         bindingItemMapWindow.tvDate.setLocaleDateFormat(timestamp = data.createdAt)
         bindingItemMapWindow.imgStory.setImageBitmap(MediaUtility.bitmapFromURL(requireContext(), data.photoUrl))

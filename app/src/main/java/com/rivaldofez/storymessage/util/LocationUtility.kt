@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package com.rivaldofez.storymessage.util
 
 import android.content.Context
@@ -13,7 +15,7 @@ object LocationUtility {
         val geoLocation =
             geocoder.getFromLocation(lat, lon, 1)
         return if (geoLocation?.size!! > 0) {
-            val location = geoLocation?.get(0)
+            val location = geoLocation[0]
             val fullAddress = location?.getAddressLine(0)
             StringBuilder("📍 ")
                 .append(fullAddress).toString()

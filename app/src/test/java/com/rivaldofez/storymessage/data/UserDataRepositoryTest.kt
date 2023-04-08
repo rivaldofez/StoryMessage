@@ -2,8 +2,8 @@ package com.rivaldofez.storymessage.data
 
 import com.rivaldofez.storymessage.data.local.UserDataLocalDataSource
 import com.rivaldofez.storymessage.data.remote.ApiService
-import com.rivaldofez.storymessage.util.DataDummy
 import com.rivaldofez.storymessage.utils.CoroutineTestRule
+import com.rivaldofez.storymessage.utils.DataDummy
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.runTest
