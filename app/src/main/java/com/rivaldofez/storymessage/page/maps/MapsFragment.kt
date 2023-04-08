@@ -32,6 +32,7 @@ import com.rivaldofez.storymessage.databinding.ItemMapWindowBinding
 import com.rivaldofez.storymessage.extension.setLocaleDateFormat
 import com.rivaldofez.storymessage.util.LocationUtility
 import com.rivaldofez.storymessage.util.MediaUtility
+import com.rivaldofez.storymessage.util.wrapEspressoIdlingResource
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import java.lang.StringBuilder
@@ -100,13 +101,16 @@ class MapsFragment : Fragment(), GoogleMap.InfoWindowAdapter {
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
         mapFragment?.getMapAsync(callback)
 
+        fusedLocationProviderClient =
+            LocationServices.getFusedLocationProviderClient(requireContext())
+
         viewLifecycleOwner.lifecycleScope.launchWhenCreated {
             mapsViewModel.getAuthenticationToken().collect { token ->
+                wrapEspressoIdlingResource {
                 if (!token.isNullOrEmpty()){
                     this@MapsFragment.token = token
-
-                    fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(requireContext())
-                    setStoryMarker()
+                        setStoryMarker()
+                    }
                 }
             }
         }
