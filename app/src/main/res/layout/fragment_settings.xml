@@ -33,6 +33,7 @@
         android:clickable="true"
         android:drawablePadding="16dp"
         android:focusable="true"
+        android:foreground="?attr/selectableItemBackground"
         android:padding="16dp"
         android:gravity="center_vertical"
         android:text="Pengaturan Bahasa"
@@ -56,7 +57,7 @@
         />
 
     <androidx.appcompat.widget.AppCompatSpinner
-        android:id="@+id/btn_theme"
+        android:id="@+id/spn_theme"
         style="@style/TitleText"
         android:layout_width="0dp"
         android:layout_height="60dp"
@@ -73,6 +74,7 @@
         android:layout_height="60dp"
         android:layout_gravity="center_vertical"
         android:clickable="true"
+        android:foreground="?attr/selectableItemBackground"
         android:drawablePadding="16dp"
         android:focusable="true"
         android:padding="16dp"
@@ -82,7 +84,7 @@
         app:drawableTint="@color/primaryColor"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_theme" />
+        app:layout_constraintTop_toBottomOf="@+id/spn_theme" />
 
 
 

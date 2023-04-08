@@ -49,7 +49,6 @@ class UserDataRepository @Inject constructor(
 
     fun getAuthenticationToken(): Flow<String?> = userDataLocalDataSource.getAuthenticationToken()
 
-    fun getThemeSetting(theme: String){
-        userDataLocalDataSource.getThemeSetting()
-    }
+    fun getThemeSetting(): Flow<String?> = userDataLocalDataSource.getThemeSetting()
+
 }
