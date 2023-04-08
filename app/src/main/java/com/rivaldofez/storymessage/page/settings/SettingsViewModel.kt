@@ -20,4 +20,10 @@ class SettingsViewModel @Inject constructor(
             userDataRepository.saveThemeSetting(themeId = themeId)
         }
     }
+
+    fun removeAuthenticationToken(){
+        viewModelScope.launch {
+            userDataRepository.removeAuthenticationToken()
+        }
+    }
 }
