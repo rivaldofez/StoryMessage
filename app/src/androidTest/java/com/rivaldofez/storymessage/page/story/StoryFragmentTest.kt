@@ -67,7 +67,7 @@ class StoryFragmentTest {
         Espresso.onView(withId(R.id.rv_story))
             .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
 
-        Espresso.onView(ViewMatchers.withText("Ridho"))
+        Espresso.onView(ViewMatchers.withText("Rivaldo"))
             .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
     }
 

@@ -31,8 +31,8 @@ class UserDataRepositoryTest {
     private lateinit var apiService: ApiService
     private lateinit var userDataRepository: UserDataRepository
 
-    private val dummyName = "Name"
-    private val dummyEmail = "mail@gmail.com"
+    private val dummyName = "Rivaldo"
+    private val dummyEmail = "rivaldofez@gmail.com"
     private val dummyPassword = "password"
     private val dummyToken = "authentication_token"
 

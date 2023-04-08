@@ -72,7 +72,7 @@ class AddStoryViewModelTest {
     }
 
     @Test
-    fun `Upload file successfully`() = runTest {
+    fun `Add story successfully`() = runTest {
         val expectedResponse = flowOf(Result.success(dummyUploadResponse))
 
         Mockito.`when`(
@@ -86,12 +86,12 @@ class AddStoryViewModelTest {
         ).thenReturn(expectedResponse)
 
         addStoryViewModel.addStory(dummyToken, dummyMultipart, dummyDescription, null, null)
-            .collect { result ->
+            .collect { resultResponse ->
 
-                Assert.assertTrue(result.isSuccess)
-                Assert.assertFalse(result.isFailure)
+                Assert.assertTrue(resultResponse.isSuccess)
+                Assert.assertFalse(resultResponse.isFailure)
 
-                result.onSuccess { actualResponse ->
+                resultResponse.onSuccess { actualResponse ->
                     Assert.assertNotNull(actualResponse)
                     Assert.assertSame(dummyUploadResponse, actualResponse)
                 }
@@ -103,7 +103,7 @@ class AddStoryViewModelTest {
     }
 
     @Test
-    fun `Upload file failed`(): Unit = runTest {
+    fun `Add story failed`(): Unit = runTest {
         val expectedResponse: Flow<Result<AddStoryResponse>> =
             flowOf(Result.failure(Exception("failed")))
 
@@ -118,11 +118,11 @@ class AddStoryViewModelTest {
         ).thenReturn(expectedResponse)
 
         addStoryViewModel.addStory(dummyToken, dummyMultipart, dummyDescription, null, null)
-            .collect { result ->
-                Assert.assertFalse(result.isSuccess)
-                Assert.assertTrue(result.isFailure)
+            .collect { resultResponse ->
+                Assert.assertFalse(resultResponse.isSuccess)
+                Assert.assertTrue(resultResponse.isFailure)
 
-                result.onFailure { actualResponse ->
+                resultResponse.onFailure { actualResponse ->
                     Assert.assertNotNull(actualResponse)
                 }
             }

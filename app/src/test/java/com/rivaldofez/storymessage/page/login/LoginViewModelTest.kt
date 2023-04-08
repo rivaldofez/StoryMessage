@@ -30,9 +30,9 @@ class LoginViewModelTest {
     private lateinit var loginViewModel: LoginViewModel
 
     private val dummyLoginResponse = DataDummy.generateDummyLoginResponse()
-    private val dummyToken = "authentication_token"
-    private val dummyEmail = "email@mail.com"
+    private val dummyEmail = "rivaldofez@gmail.com"
     private val dummyPassword = "password"
+    private val dummyToken = "authentication_token"
 
     @Before
     fun setup() {
@@ -47,12 +47,12 @@ class LoginViewModelTest {
 
         Mockito.`when`(loginViewModel.userLogin(dummyEmail, dummyPassword)).thenReturn(expectedResponse)
 
-        loginViewModel.userLogin(dummyEmail, dummyPassword).collect { result ->
+        loginViewModel.userLogin(dummyEmail, dummyPassword).collect { resultResponse ->
 
-            assertTrue(result.isSuccess)
-            assertFalse(result.isFailure)
+            assertTrue(resultResponse.isSuccess)
+            assertFalse(resultResponse.isFailure)
 
-            result.onSuccess { actualResponse ->
+            resultResponse.onSuccess { actualResponse ->
                 assertNotNull(actualResponse)
                 assertSame(dummyLoginResponse, actualResponse)
             }
@@ -68,13 +68,13 @@ class LoginViewModelTest {
 
         Mockito.`when`(loginViewModel.userLogin(dummyEmail, dummyPassword)).thenReturn(expectedResponse)
 
-        loginViewModel.userLogin(dummyEmail, dummyPassword).collect { result ->
+        loginViewModel.userLogin(dummyEmail, dummyPassword).collect { resultResponse ->
 
-            assertFalse(result.isSuccess)
-            assertTrue(result.isFailure)
+            assertFalse(resultResponse.isSuccess)
+            assertTrue(resultResponse.isFailure)
 
-            result.onFailure {
-                assertNotNull(it)
+            resultResponse.onFailure { actualResponse ->
+                assertNotNull(actualResponse)
             }
         }
 

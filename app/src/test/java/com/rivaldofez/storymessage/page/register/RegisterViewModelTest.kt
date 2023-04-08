@@ -24,8 +24,8 @@ class RegisterViewModelTest {
     private lateinit var registerViewModel: RegisterViewModel
 
     private val dummyRegisterResponse = DataDummy.generateDummyRegisterResponse()
-    private val dummyName = "Full Name"
-    private val dummyEmail = "email@mail.com"
+    private val dummyName = "Rivaldo Fernandes"
+    private val dummyEmail = "rivaldofez@gmail.com"
     private val dummyPassword = "password"
 
     @Before
@@ -41,12 +41,12 @@ class RegisterViewModelTest {
             expectedResponse
         )
 
-        registerViewModel.registerUser(dummyName, dummyEmail, dummyPassword).collect { response ->
+        registerViewModel.registerUser(dummyName, dummyEmail, dummyPassword).collect { resultResponse ->
 
-            assertTrue(response.isSuccess)
-            assertFalse(response.isFailure)
+            assertTrue(resultResponse.isSuccess)
+            assertFalse(resultResponse.isFailure)
 
-            response.onSuccess { actualResponse ->
+            resultResponse.onSuccess { actualResponse ->
                 assertNotNull(actualResponse)
                 assertSame(dummyRegisterResponse, actualResponse)
             }
@@ -64,13 +64,13 @@ class RegisterViewModelTest {
             expectedResponse
         )
 
-        registerViewModel.registerUser(dummyName, dummyEmail, dummyPassword).collect { response ->
+        registerViewModel.registerUser(dummyName, dummyEmail, dummyPassword).collect { resultResponse ->
 
-            assertFalse(response.isSuccess)
-            assertTrue(response.isFailure)
+            assertFalse(resultResponse.isSuccess)
+            assertTrue(resultResponse.isFailure)
 
-            response.onFailure {
-                assertNotNull(it)
+            resultResponse.onFailure { actualResponse ->
+                assertNotNull(actualResponse)
             }
         }
     }

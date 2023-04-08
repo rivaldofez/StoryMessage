@@ -30,7 +30,7 @@ class MapsViewModelTest {
     private lateinit var mapsViewModel: MapsViewModel
 
     private val dummyStoriesResponse = DataDummy.generateDummyStoriesResponse()
-    private val dummyToken = "AUTH_TOKEN"
+    private val dummyToken = "authentication_token"
 
     @Before
     fun setup() {

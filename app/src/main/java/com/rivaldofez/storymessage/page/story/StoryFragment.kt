@@ -1,6 +1,7 @@
 package com.rivaldofez.storymessage.page.story
 
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.appcompat.app.AppCompatActivity
@@ -82,9 +83,10 @@ class StoryFragment : Fragment(), StoryItemCallback {
     }
 
     private fun getStories(){
-
+        Log.d("Heston", "Call 1")
         storyViewModel.getStories(token = token).observe(viewLifecycleOwner) { result ->
             updateRecyclerViewStoryData(result)
+            Log.d("Heston", result.toString())
         }
     }
 

@@ -24,8 +24,6 @@ class SettingsViewModelTest {
     private lateinit var userDataRepository: UserDataRepository
     private lateinit var settingsViewModel: SettingsViewModel
 
-    private val dummyToken = "authentication_token"
-
     @Before
     fun setup() {
         settingsViewModel = SettingsViewModel(userDataRepository)

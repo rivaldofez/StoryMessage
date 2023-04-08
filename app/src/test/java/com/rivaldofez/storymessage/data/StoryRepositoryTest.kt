@@ -86,11 +86,11 @@ class StoryRepositoryTest {
 
         Mockito.`when`(storyRepositoryMock.getStoriesWithLocation(dummyToken)).thenReturn(expectedResult)
 
-        storyRepositoryMock.getStoriesWithLocation(dummyToken).collect { result ->
-            Assert.assertTrue(result.isSuccess)
-            Assert.assertFalse(result.isFailure)
+        storyRepositoryMock.getStoriesWithLocation(dummyToken).collect { resultResponse ->
+            Assert.assertTrue(resultResponse.isSuccess)
+            Assert.assertFalse(resultResponse.isFailure)
 
-            result.onSuccess { actualResponse ->
+            resultResponse.onSuccess { actualResponse ->
                 Assert.assertNotNull(actualResponse)
                 Assert.assertEquals(dummyStoriesResponse, actualResponse)
             }
@@ -98,19 +98,19 @@ class StoryRepositoryTest {
     }
 
     @Test
-    fun `Get stories with location - throw exception`() = runTest {
+    fun `Get stories with location - with exception`() = runTest {
         val expectedResponse = flowOf<Result<StoriesResponse>>(Result.failure(Exception("failed")))
 
         Mockito.`when`(storyRepositoryMock.getStoriesWithLocation(dummyToken)).thenReturn(
             expectedResponse
         )
 
-        storyRepositoryMock.getStoriesWithLocation(dummyToken).collect { result ->
-            Assert.assertFalse(result.isSuccess)
-            Assert.assertTrue(result.isFailure)
+        storyRepositoryMock.getStoriesWithLocation(dummyToken).collect { resultResponse ->
+            Assert.assertFalse(resultResponse.isSuccess)
+            Assert.assertTrue(resultResponse.isFailure)
 
-            result.onFailure {
-                Assert.assertNotNull(it)
+            resultResponse.onFailure { actualResponse ->
+                Assert.assertNotNull(actualResponse)
             }
         }
     }
@@ -130,11 +130,11 @@ class StoryRepositoryTest {
         ).thenReturn(expectedResponse)
 
         storyRepository.addStory(dummyToken, dummyMultipart, dummyDescription, null, null)
-            .collect { result ->
-                Assert.assertTrue(result.isSuccess)
-                Assert.assertFalse(result.isFailure)
+            .collect { resultResponse ->
+                Assert.assertTrue(resultResponse.isSuccess)
+                Assert.assertFalse(resultResponse.isFailure)
 
-                result.onSuccess { actualResponse ->
+                resultResponse.onSuccess { actualResponse ->
                     Assert.assertEquals(expectedResponse, actualResponse)
                 }
             }
@@ -164,12 +164,12 @@ class StoryRepositoryTest {
         ).then { throw Exception() }
 
         storyRepository.addStory(dummyToken, dummyMultipart, dummyDescription, null, null)
-            .collect { result ->
-                Assert.assertFalse(result.isSuccess)
-                Assert.assertTrue(result.isFailure)
+            .collect { resultResponse ->
+                Assert.assertFalse(resultResponse.isSuccess)
+                Assert.assertTrue(resultResponse.isFailure)
 
-                result.onFailure {
-                    Assert.assertNotNull(it)
+                resultResponse.onFailure { actualResponse ->
+                    Assert.assertNotNull(actualResponse)
                 }
             }
 
