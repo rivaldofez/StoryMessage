@@ -26,6 +26,7 @@ class BaseActivity : AppCompatActivity() {
             }
         }
 
+        binding.bottomBar.setItemSelected(R.id.home, true)
         binding.bottomBar.setOnItemSelectedListener { menuItem ->
             when(menuItem){
                 R.id.home -> {

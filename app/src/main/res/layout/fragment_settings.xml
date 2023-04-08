@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/bgColor"
     tools:context=".page.settings.SettingsFragment">
 
     <androidx.appcompat.widget.Toolbar
@@ -63,6 +64,7 @@
         android:layout_height="60dp"
         android:padding="0dp"
         android:text="Logout"
+        android:popupBackground="@color/lightBgColor"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/iv_icon_theme"
         app:layout_constraintTop_toBottomOf="@+id/btn_language" />
@@ -85,7 +87,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/spn_theme" />
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

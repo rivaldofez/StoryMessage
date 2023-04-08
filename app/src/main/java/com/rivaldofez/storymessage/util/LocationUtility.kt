@@ -15,10 +15,10 @@ object LocationUtility {
         return if (geoLocation?.size!! > 0) {
             val location = geoLocation?.get(0)
             val fullAddress = location?.getAddressLine(0)
-            StringBuilder("📌 ")
+            StringBuilder("📍 ")
                 .append(fullAddress).toString()
         } else {
-            "📌 Location Unknown"
+            "📍 Location Unknown"
         }
     }
 }

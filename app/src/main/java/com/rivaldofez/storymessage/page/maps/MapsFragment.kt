@@ -140,16 +140,12 @@ class MapsFragment : Fragment(), GoogleMap.InfoWindowAdapter {
                     result.onSuccess { response ->
                         response.stories.forEach { story ->
 
-                            // Verify that latitude and longitude field not null
-                            // Create marker on the map
                             if (story.lat != null && story.lon != null) {
                                 val latLng = LatLng(story.lat, story.lon)
 
                                 mMap.addMarker(
                                     MarkerOptions()
                                         .position(latLng)
-                                        .title(story.name)
-                                        .snippet("Lat: ${story.lat}, Lon: ${story.lon}")
                                 )?.tag = story
                             }
                         }
