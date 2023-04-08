@@ -39,6 +39,7 @@ import com.rivaldofez.storymessage.util.MediaUtility.reduceFileImage
 import com.rivaldofez.storymessage.util.MediaUtility.uriToFile
 import com.rivaldofez.storymessage.databinding.FragmentAddStoryBinding
 import com.rivaldofez.storymessage.extension.animateVisibility
+import com.rivaldofez.storymessage.util.LocationUtility
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -147,8 +148,11 @@ class AddStoryFragment : Fragment() {
             fusedLocationClient.lastLocation.addOnSuccessListener { location ->
                 if (location != null) {
                     this.location = location
-                    binding.tvLocation.text = "Lat : ${location.latitude} Long: ${location.longitude} "
-                    Log.d("Test", "Last Location: ${location.latitude}, ${location.longitude}")
+                    binding.tvLocation.text = LocationUtility.parseAddressLocation(
+                        context = requireContext(),
+                        lat = location.latitude,
+                        lon = location.longitude
+                    )
                 } else {
                     Toast.makeText(
                         requireContext(),

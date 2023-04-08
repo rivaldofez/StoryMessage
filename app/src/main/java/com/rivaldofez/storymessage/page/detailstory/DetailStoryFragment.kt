@@ -16,7 +16,6 @@ import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import com.rivaldofez.storymessage.R
 import com.rivaldofez.storymessage.data.local.entity.StoryEntity
-import com.rivaldofez.storymessage.data.remote.response.StoryResponse
 import com.rivaldofez.storymessage.databinding.FragmentDetailStoryBinding
 import com.rivaldofez.storymessage.extension.setLocaleDateFormat
 

@@ -2,7 +2,6 @@ package com.rivaldofez.storymessage.di
 
 import android.content.Context
 import androidx.room.Room
-import androidx.room.RoomDatabase
 import com.rivaldofez.storymessage.data.local.room.RemoteKeysDao
 import com.rivaldofez.storymessage.data.local.room.StoryDao
 import com.rivaldofez.storymessage.data.local.room.StoryDatabase

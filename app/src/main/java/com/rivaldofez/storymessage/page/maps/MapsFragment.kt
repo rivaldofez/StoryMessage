@@ -5,22 +5,18 @@ import android.content.pm.PackageManager
 import androidx.fragment.app.Fragment
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.appcompat.widget.ThemedSpinnerAdapter.Helper
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.paging.ExperimentalPagingApi
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
-
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -33,9 +29,7 @@ import com.rivaldofez.storymessage.data.local.entity.StoryEntity
 import com.rivaldofez.storymessage.data.remote.response.StoryResponse
 import com.rivaldofez.storymessage.databinding.FragmentMapsBinding
 import com.rivaldofez.storymessage.databinding.ItemMapWindowBinding
-import com.rivaldofez.storymessage.extension.setImageFromUrl
 import com.rivaldofez.storymessage.extension.setLocaleDateFormat
-import com.rivaldofez.storymessage.page.story.StoryFragmentDirections
 import com.rivaldofez.storymessage.util.LocationUtility
 import com.rivaldofez.storymessage.util.MediaUtility
 import dagger.hilt.android.AndroidEntryPoint
@@ -169,7 +163,7 @@ class MapsFragment : Fragment(), GoogleMap.InfoWindowAdapter {
         return null
     }
 
-    override fun getInfoWindow(marker: Marker): View? {
+    override fun getInfoWindow(marker: Marker): View {
         val bindingItemMapWindow = ItemMapWindowBinding.inflate(LayoutInflater.from(requireContext()))
         val data: StoryResponse = marker.tag as StoryResponse
 

@@ -10,11 +10,8 @@ import com.rivaldofez.storymessage.data.remote.ApiService
 import com.rivaldofez.storymessage.data.remote.StoryRemoteMediator
 import com.rivaldofez.storymessage.data.remote.response.AddStoryResponse
 import com.rivaldofez.storymessage.data.remote.response.StoriesResponse
-import com.rivaldofez.storymessage.data.remote.response.StoryResponse
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.flowOn
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import javax.inject.Inject
@@ -25,19 +22,8 @@ class StoryRepository @Inject constructor(
     private val storyDatabase: StoryDatabase
 ) {
 
-//    suspend fun getStories(token: String, page: Int?, size: Int?): Flow<Result<StoriesResponse>> = flow{
-//        try {
-//            val bearerToken = "Bearer $token"
-//            val response = apiService.getStories(token = bearerToken, page = page, size = size)
-//            emit(Result.success(response))
-//        } catch (e: Exception){
-//            e.printStackTrace()
-//            emit(Result.failure(e))
-//        }
-//    }.flowOn(Dispatchers.IO)
-
     fun getStories(token: String): Flow<PagingData<StoryEntity>> {
-        val bearerToken = "Bearer $token"
+        val bearerToken = generateBearerToken(token)
         return Pager(
             config = PagingConfig(pageSize = 15),
             remoteMediator = StoryRemoteMediator(storyDatabase, apiService, bearerToken),
@@ -47,7 +33,7 @@ class StoryRepository @Inject constructor(
 
     fun getStoriesWithLocation(token: String): Flow<Result<StoriesResponse>> = flow {
         try {
-            val bearerToken = "Bearer $token"
+            val bearerToken = generateBearerToken(token)
             val response = apiService.getStories(token = bearerToken, size = 30, location = 1, page = null)
             emit(Result.success(response))
         } catch (e: Exception) {
@@ -64,7 +50,7 @@ class StoryRepository @Inject constructor(
                          lon: RequestBody?
     ) : Flow<Result<AddStoryResponse>> = flow {
         try {
-            val bearerToken = "Bearer $token"
+            val bearerToken = generateBearerToken(token)
             val response = apiService.addStory(token = bearerToken, file = file, description = description, lat = lat, lon = lon)
             emit(Result.success(response))
         } catch (e: Exception){
@@ -72,4 +58,6 @@ class StoryRepository @Inject constructor(
             emit(Result.failure(e))
         }
     }
+
+    private fun generateBearerToken(token : String): String = "Bearer $token"
 }

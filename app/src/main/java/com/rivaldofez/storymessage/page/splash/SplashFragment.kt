@@ -41,8 +41,6 @@ class SplashFragment : Fragment() {
             launch {
                 splashViewModel.getAuthenticationToken().collect { token ->
                     delay(3000)
-//                    val goToMaps = SplashFragmentDirections.actionSplashFragmentToMapsFragment()
-//                    findNavController().navigate(goToMaps)
                     if (token.isNullOrEmpty()) {
                         val goToLogin =
                             SplashFragmentDirections.actionSplashFragmentToLoginFragment()
