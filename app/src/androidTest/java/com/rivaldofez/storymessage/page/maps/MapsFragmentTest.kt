@@ -19,6 +19,8 @@ import org.junit.Rule
 import org.junit.Test
 import com.rivaldofez.storymessage.R
 
+
+//Initial State, account must be LOGGED in
 @ExperimentalPagingApi
 @MediumTest
 @HiltAndroidTest

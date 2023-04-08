@@ -30,6 +30,7 @@ import com.rivaldofez.storymessage.utils.JsonConverter
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
 
+//Initial State, account must be LOGGED in
 @MediumTest
 @ExperimentalPagingApi
 @HiltAndroidTest

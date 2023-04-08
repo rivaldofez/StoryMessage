@@ -21,6 +21,7 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 
+//Initial State, account must be LOGGED in
 @RunWith(AndroidJUnit4::class)
 @LargeTest
 @HiltAndroidTest
