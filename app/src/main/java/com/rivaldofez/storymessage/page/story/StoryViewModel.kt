@@ -7,7 +7,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
-import com.rivaldofez.storymessage.data.AuthenticationRepository
+import com.rivaldofez.storymessage.data.UserDataRepository
 import com.rivaldofez.storymessage.data.StoryRepository
 import com.rivaldofez.storymessage.data.local.entity.StoryEntity
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -18,7 +18,7 @@ import javax.inject.Inject
 @ExperimentalPagingApi
 @HiltViewModel
 class StoryViewModel @Inject constructor(
-    private val authenticationRepository: AuthenticationRepository,
+    private val userDataRepository: UserDataRepository,
     private val storyRepository: StoryRepository
 ): ViewModel() {
 
@@ -28,11 +28,11 @@ class StoryViewModel @Inject constructor(
     fun getStories(token: String): LiveData<PagingData<StoryEntity>> =
         storyRepository.getStories(token = token).cachedIn(viewModelScope).asLiveData()
 
-    fun getAuthenticationToken(): Flow<String?> = authenticationRepository.getAuthenticationToken()
+    fun getAuthenticationToken(): Flow<String?> = userDataRepository.getAuthenticationToken()
 
     fun removeAuthenticationToken(){
         viewModelScope.launch {
-            authenticationRepository.removeAuthenticationToken()
+            userDataRepository.removeAuthenticationToken()
         }
     }
 

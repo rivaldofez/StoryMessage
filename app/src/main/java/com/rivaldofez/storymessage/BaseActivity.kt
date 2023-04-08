@@ -22,6 +22,7 @@ class BaseActivity : AppCompatActivity() {
             when(destination.id) {
                 R.id.storyFragment -> binding.bottomBar.visibility = View.VISIBLE
                 R.id.mapsFragment -> binding.bottomBar.visibility = View.VISIBLE
+                R.id.settingsFragment -> binding.bottomBar.visibility = View.VISIBLE
                 else -> binding.bottomBar.visibility = View.GONE
             }
         }
@@ -36,8 +37,7 @@ class BaseActivity : AppCompatActivity() {
                 when (newIndex) {
                     0 -> navController?.navigate(R.id.storyFragment)
                     1 -> navController?.navigate(R.id.mapsFragment)
-                    else -> navController?.navigate(R.id.storyFragment)
-
+                    else -> navController?.navigate(R.id.settingsFragment)
                 }
             }
         })

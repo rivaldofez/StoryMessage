@@ -3,13 +3,10 @@ package com.rivaldofez.storymessage.page.story
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.paging.PagingData
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.rivaldofez.storymessage.data.local.entity.StoryEntity
-import com.rivaldofez.storymessage.data.remote.response.StoryResponse
 import com.rivaldofez.storymessage.databinding.ItemStoryBinding
 import com.rivaldofez.storymessage.extension.setImageFromUrl
 import com.rivaldofez.storymessage.extension.setLocaleDateFormat

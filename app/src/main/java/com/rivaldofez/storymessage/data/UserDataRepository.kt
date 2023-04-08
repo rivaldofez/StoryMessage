@@ -1,6 +1,6 @@
 package com.rivaldofez.storymessage.data
 
-import com.rivaldofez.storymessage.data.local.AuthenticationLocalDataSource
+import com.rivaldofez.storymessage.data.local.UserDataLocalDataSource
 import com.rivaldofez.storymessage.data.remote.ApiService
 import com.rivaldofez.storymessage.data.remote.response.LoginResponse
 import com.rivaldofez.storymessage.data.remote.response.RegisterResponse
@@ -10,9 +10,9 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject
 
-class AuthenticationRepository @Inject constructor(
+class UserDataRepository @Inject constructor(
     private val apiService: ApiService,
-    private val authenticationLocalDataSource: AuthenticationLocalDataSource) {
+    private val userDataLocalDataSource: UserDataLocalDataSource) {
 
     suspend fun userLogin(email: String, password: String): Flow<Result<LoginResponse>> = flow {
         try {
@@ -36,12 +36,20 @@ class AuthenticationRepository @Inject constructor(
     }.flowOn(Dispatchers.IO)
 
     suspend fun saveAuthenticationToken(token: String){
-        authenticationLocalDataSource.saveAuthenticationToken(token)
+        userDataLocalDataSource.saveAuthenticationToken(token)
     }
 
     suspend fun removeAuthenticationToken(){
-        authenticationLocalDataSource.removeAuthenticationToken()
+        userDataLocalDataSource.removeAuthenticationToken()
     }
 
-    fun getAuthenticationToken(): Flow<String?> = authenticationLocalDataSource.getAuthenticationToken()
+    suspend fun saveThemeSetting(theme: String){
+        userDataLocalDataSource.saveThemeSetting(theme)
+    }
+
+    fun getAuthenticationToken(): Flow<String?> = userDataLocalDataSource.getAuthenticationToken()
+
+    fun getThemeSetting(theme: String){
+        userDataLocalDataSource.getThemeSetting()
+    }
 }
