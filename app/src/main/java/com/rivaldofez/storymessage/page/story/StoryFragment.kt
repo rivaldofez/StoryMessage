@@ -108,9 +108,10 @@ class StoryFragment : Fragment(), StoryItemCallback {
             storyViewModel.getAuthenticationToken().collect { token ->
                 if (!token.isNullOrEmpty()){
                     this@StoryFragment.token = token
+                    setSwipeRefresh()
                     setupStoryRecyclerView()
                     getStories()
-                    setSwipeRefresh()
+
                 }
             }
         }
@@ -162,25 +163,6 @@ class StoryFragment : Fragment(), StoryItemCallback {
         storyViewModel.getStories(token = token).observe(viewLifecycleOwner) { result ->
             updateRecyclerViewStoryData(result)
         }
-
-//        viewLifecycleOwner.lifecycleScope.launch{
-//            binding.srlStory.isRefreshing = true
-//            lifecycle.repeatOnLifecycle(Lifecycle.State.RESUMED) {
-//                storyViewModel.getStories(token = token).collect { result ->
-//                    result.onSuccess { storiesResponse ->
-//                        updateRecyclerViewStoryData(stories = storiesResponse.stories)
-//                        binding.srlStory.isRefreshing = false
-//                        showError(storiesResponse.stories.isEmpty())
-//                    }
-//
-//                    result.onFailure {
-//                        Snackbar.make(binding.root, getString(R.string.error_while_fetch_stories), Snackbar.LENGTH_SHORT).show()
-//                        showError(true)
-//                        binding.srlStory.isRefreshing = false
-//                    }
-//                }
-//            }
-//        }
     }
 
     private fun showError(isError: Boolean){
@@ -217,7 +199,7 @@ class StoryFragment : Fragment(), StoryItemCallback {
             storyRecyclerView = binding.rvStory
             storyRecyclerView.apply {
                 adapter = storyAdapter.withLoadStateFooter(
-                    footer = LoadingStateAdapter{
+                    footer = LoadingStateAdapter {
                         storyAdapter.retry()
                     }
                 )
@@ -226,9 +208,6 @@ class StoryFragment : Fragment(), StoryItemCallback {
         } catch (e: java.lang.NullPointerException){
             e.printStackTrace()
         }
-
-
-
     }
 
     override fun onDestroy() {

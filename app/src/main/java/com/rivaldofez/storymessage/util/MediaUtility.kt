@@ -6,7 +6,11 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Environment
+import android.os.StrictMode
+import com.rivaldofez.storymessage.R
 import java.io.*
+import java.net.HttpURLConnection
+import java.net.URL
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -56,6 +60,22 @@ object MediaUtility {
         bitmap.compress(Bitmap.CompressFormat.JPEG, compressQuality, FileOutputStream(file))
 
         return file
+    }
+
+    fun bitmapFromURL(context: Context, urlString: String): Bitmap {
+        return try {
+            val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()
+            StrictMode.setThreadPolicy(policy)
+
+            val url = URL(urlString)
+            val connection: HttpURLConnection = url.openConnection() as HttpURLConnection
+            connection.doInput = true
+            connection.connect()
+            val input: InputStream = connection.inputStream
+            BitmapFactory.decodeStream(input)
+        } catch (e: IOException) {
+            BitmapFactory.decodeResource(context.resources, R.drawable.logo)
+        }
     }
 
 }
