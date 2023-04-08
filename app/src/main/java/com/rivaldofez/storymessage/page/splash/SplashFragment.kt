@@ -10,6 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.rivaldofez.storymessage.databinding.FragmentSplashBinding
+import com.rivaldofez.storymessage.util.wrapEspressoIdlingResource
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -56,22 +57,24 @@ class SplashFragment : Fragment() {
     }
 
     private fun checkUserSession(){
-        viewLifecycleOwner.lifecycleScope.launchWhenCreated {
-            launch {
-                splashViewModel.getAuthenticationToken().collect { token ->
-                    delay(3000)
-                    if (token.isNullOrEmpty()) {
-                        val goToLogin =
-                            SplashFragmentDirections.actionSplashFragmentToLoginFragment()
-                        findNavController().navigate(goToLogin)
-                    } else {
-                        val goToStory =
-                            SplashFragmentDirections.actionSplashFragmentToStoryFragment()
-                        findNavController().navigate(goToStory)
+            viewLifecycleOwner.lifecycleScope.launchWhenCreated {
+                launch {
+                    splashViewModel.getAuthenticationToken().collect { token ->
+                        wrapEspressoIdlingResource {
+                        delay(3000)
+                        if (token.isNullOrEmpty()) {
+                            val goToLogin =
+                                SplashFragmentDirections.actionSplashFragmentToLoginFragment()
+                            findNavController().navigate(goToLogin)
+                        } else {
+                            val goToStory =
+                                SplashFragmentDirections.actionSplashFragmentToStoryFragment()
+                            findNavController().navigate(goToStory)
+                        }}
                     }
                 }
             }
-        }
+
     }
 
     override fun onDestroyView() {

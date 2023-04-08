@@ -46,8 +46,28 @@ class BaseActivityTest {
 
     @Test
     fun loadStoryDetailInformation() {
+        Espresso.onView(ViewMatchers.withId(R.id.rv_story))
+            .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+        Espresso.onView(ViewMatchers.withId(R.id.rv_story)).perform(
+            RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(
+                0,
+                ViewActions.click()
+            )
+        )
 
+        Espresso.onView(ViewMatchers.withId(R.id.toolbar_detail_story))
+            .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+//        Espresso.onView(ViewMatchers.withId(R.id.tv_name))
+//            .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+        Espresso.onView(ViewMatchers.withId(R.id.tv_date))
+            .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+        Espresso.onView(ViewMatchers.withId(R.id.img_story))
+            .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+        Espresso.onView(ViewMatchers.withId(R.id.scroll_view)).perform(ViewActions.swipeUp())
+        Espresso.onView(ViewMatchers.withId(R.id.tv_description))
+            .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
 
+        Espresso.pressBack()
 
     }
 }

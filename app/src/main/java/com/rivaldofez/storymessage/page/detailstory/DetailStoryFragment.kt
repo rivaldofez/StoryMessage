@@ -18,6 +18,7 @@ import com.rivaldofez.storymessage.R
 import com.rivaldofez.storymessage.data.local.entity.StoryEntity
 import com.rivaldofez.storymessage.databinding.FragmentDetailStoryBinding
 import com.rivaldofez.storymessage.extension.setLocaleDateFormat
+import com.rivaldofez.storymessage.util.wrapEspressoIdlingResource
 
 class DetailStoryFragment : Fragment(){
 
@@ -26,8 +27,9 @@ class DetailStoryFragment : Fragment(){
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        wrapEspressoIdlingResource {
         sharedElementEnterTransition = TransitionInflater.from(requireContext()).inflateTransition(android.R.transition.explode)
-    }
+    }}
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
