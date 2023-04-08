@@ -37,7 +37,7 @@ class StoryRepository @Inject constructor(
             try {
                 val bearerToken = generateBearerToken(token)
                 val response =
-                    apiService.getStories(token = bearerToken, size = 30, location = 1, page = null)
+                    apiService.getStories(token = bearerToken, page = null, size = 30, location = 1)
                 emit(Result.success(response))
             } catch (e: Exception) {
                 e.printStackTrace()

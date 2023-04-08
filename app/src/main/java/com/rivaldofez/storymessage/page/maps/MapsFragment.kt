@@ -140,7 +140,7 @@ class MapsFragment : Fragment(), GoogleMap.InfoWindowAdapter {
     private fun setStoryMarker() {
         viewLifecycleOwner.lifecycleScope.launchWhenResumed {
             launch {
-                mapsViewModel.getStories(token).collect { result ->
+                mapsViewModel.getStoriesWithLocation(token).collect { result ->
                     result.onSuccess { response ->
                         response.stories.forEach { story ->
 

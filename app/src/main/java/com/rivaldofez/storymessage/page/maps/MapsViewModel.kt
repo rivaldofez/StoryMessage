@@ -16,8 +16,8 @@ class MapsViewModel @Inject constructor(
     private val storyRepository: StoryRepository) :
     ViewModel() {
 
-    fun getStories(token: String): Flow<Result<StoriesResponse>> =
-        storyRepository.getStoriesWithLocation(token)
+    fun getStoriesWithLocation(token: String): Flow<Result<StoriesResponse>> =
+        storyRepository.getStoriesWithLocation(token = token)
 
     fun getAuthenticationToken(): Flow<String?> = userDataRepository.getAuthenticationToken()
 }

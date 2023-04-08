@@ -10,11 +10,12 @@ import com.rivaldofez.storymessage.page.story.StoryAdapter
 import com.rivaldofez.storymessage.util.DataDummy
 import com.rivaldofez.storymessage.utils.CoroutineTestRule
 import com.rivaldofez.storymessage.utils.PagedTestDataSource
+import junit.framework.TestCase.assertNotNull
+import junit.framework.TestCase.assertEquals
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert
-import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test

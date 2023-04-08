@@ -5,12 +5,13 @@ import com.rivaldofez.storymessage.data.StoryRepository
 import com.rivaldofez.storymessage.data.UserDataRepository
 import com.rivaldofez.storymessage.data.remote.response.AddStoryResponse
 import com.rivaldofez.storymessage.util.DataDummy
+import junit.framework.TestCase.assertEquals
+import junit.framework.TestCase.assertNotNull
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert
-import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -27,6 +28,8 @@ class AddStoryViewModelTest {
 
     @Mock
     private lateinit var storyRepository: StoryRepository
+
+    @Mock
     private lateinit var addStoryViewModel: AddStoryViewModel
 
     private val dummyToken = "authentication_token"
@@ -64,7 +67,7 @@ class AddStoryViewModelTest {
             Assert.assertNull(actualToken)
         }
 
-        Mockito.verify(addStoryViewModel).getAuthenticationToken()
+        Mockito.verify(userDataRepository).getAuthenticationToken()
         Mockito.verifyNoInteractions(storyRepository)
     }
 

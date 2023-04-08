@@ -42,9 +42,9 @@ class MapsViewModelTest {
 
         val expectedResponse = flowOf(Result.success(dummyStoriesResponse))
 
-        Mockito.`when`(mapsViewModel.getStories(dummyToken)).thenReturn(expectedResponse)
+        Mockito.`when`(mapsViewModel.getStoriesWithLocation(dummyToken)).thenReturn(expectedResponse)
 
-        mapsViewModel.getStories(dummyToken).collect { actualResponse ->
+        mapsViewModel.getStoriesWithLocation(dummyToken).collect { actualResponse ->
 
             assertTrue(actualResponse.isSuccess)
             assertFalse(actualResponse.isFailure)
@@ -55,7 +55,7 @@ class MapsViewModelTest {
             }
         }
 
-        Mockito.verify(storyRepository).getStories(dummyToken)
+        Mockito.verify(storyRepository).getStoriesWithLocation(dummyToken)
     }
 
     @Test
@@ -64,9 +64,9 @@ class MapsViewModelTest {
         val expectedResponse: Flow<Result<StoriesResponse>> =
             flowOf(Result.failure(Exception("Failed")))
 
-        Mockito.`when`(mapsViewModel.getStories(dummyToken)).thenReturn(expectedResponse)
+        Mockito.`when`(mapsViewModel.getStoriesWithLocation(dummyToken)).thenReturn(expectedResponse)
 
-        mapsViewModel.getStories(dummyToken).collect { actualResponse ->
+        mapsViewModel.getStoriesWithLocation(dummyToken).collect { actualResponse ->
 
             assertFalse(actualResponse.isSuccess)
             assertTrue(actualResponse.isFailure)

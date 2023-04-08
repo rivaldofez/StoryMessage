@@ -1,13 +1,10 @@
 package com.rivaldofez.storymessage.data
 
-import android.provider.ContactsContract.Data
-import androidx.datastore.preferences.preferencesDataStore
 import com.rivaldofez.storymessage.data.local.UserDataLocalDataSource
 import com.rivaldofez.storymessage.data.remote.ApiService
 import com.rivaldofez.storymessage.util.DataDummy
 import com.rivaldofez.storymessage.utils.CoroutineTestRule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert
