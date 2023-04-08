@@ -15,9 +15,8 @@ class PagedTestDataSource :
         }
     }
 
-    override fun getRefreshKey(state: PagingState<Int, LiveData<List<StoryEntity>>>): Int {
-        return 0
-    }
+    override fun getRefreshKey(state: PagingState<Int, LiveData<List<StoryEntity>>>): Int = 0
+
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, LiveData<List<StoryEntity>>> {
         return LoadResult.Page(emptyList(), 0, 1)

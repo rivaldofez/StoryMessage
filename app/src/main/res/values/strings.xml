@@ -51,6 +51,12 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="settings">Settings</string>
+    <string name="field_location">Share Location</string>
+    <string name="cd_spinner_theme">Select your theme</string>
+    <string name="icon_theme">Icon Theme</string>
+    <string name="click_to_see_story">Click To See Story</string>
+    <string name="home">Home</string>
+    <string name="maps">Maps</string>
     <string-array name="themes">
         <item>Default System</item>
         <item>Light Mode</item>

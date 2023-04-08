@@ -3,18 +3,18 @@
     <item
         android:id="@+id/home"
         android:icon="@drawable/ic_home_24"
-        android:title="Home"
+        android:title="@string/home"
         android:checked="true"
         android:color="@color/accentColor"/>
     <item
         android:id="@+id/maps"
         android:icon="@drawable/ic_maps_24"
-        android:title="Maps"
+        android:title="@string/maps"
         android:color="@color/accentColor"/>
     <item
         android:id="@+id/settings"
         android:icon="@drawable/ic_settings_24"
-        android:title="Settings"
+        android:title="@string/settings"
         android:color="@color/accentColor"/>
 
 </menu>
