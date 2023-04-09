@@ -107,7 +107,7 @@
             app:popExitAnim="@android:anim/fade_out" />
         <argument
             android:name="story"
-            app:argType="com.rivaldofez.storymessage.data.remote.response.StoryResponse"
+            app:argType="com.rivaldofez.storymessage.data.local.entity.StoryEntity"
             app:nullable="true"
             android:defaultValue="@null" />
     </fragment>
@@ -123,5 +123,33 @@
             app:exitAnim="@android:anim/fade_out"
             app:popEnterAnim="@android:anim/fade_in"
             app:popExitAnim="@android:anim/fade_out" />
+    </fragment>
+    <fragment
+        android:id="@+id/mapsFragment"
+        android:name="com.rivaldofez.storymessage.page.maps.MapsFragment"
+        android:label="fragment_maps"
+        tools:layout="@layout/fragment_maps" >
+        <action
+            android:id="@+id/action_mapsFragment_to_detailStoryFragment"
+            app:destination="@id/detailStoryFragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@android:anim/fade_out" />
+    </fragment>
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.rivaldofez.storymessage.page.settings.SettingsFragment"
+        android:label="fragment_settings"
+        tools:layout="@layout/fragment_settings" >
+        <action
+            android:id="@+id/action_settingsFragment_to_loginFragment"
+            app:destination="@id/loginFragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@android:anim/fade_out"
+            app:popUpTo="@id/settingsFragment"
+            app:popUpToInclusive="true" />
     </fragment>
 </navigation>

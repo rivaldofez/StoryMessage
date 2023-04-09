@@ -55,6 +55,8 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/img_story" />
 
+
+
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/btn_camera"
                 android:layout_width="wrap_content"
@@ -81,6 +83,36 @@
                 app:layout_constraintTop_toTopOf="@+id/btn_camera" />
 
             <TextView
+                android:id="@+id/tv_title_location"
+                style="@style/TitleText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/field_location"
+                app:layout_constraintBottom_toBottomOf="@+id/sw_location"
+                app:layout_constraintStart_toStartOf="@id/tv_title_select_image"
+                app:layout_constraintTop_toTopOf="@id/sw_location" />
+
+            <com.google.android.material.switchmaterial.SwitchMaterial
+                android:id="@+id/sw_location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:layout_marginStart="16dp"
+                app:layout_constraintStart_toEndOf="@+id/tv_title_location"
+                app:layout_constraintTop_toBottomOf="@id/btn_camera" />
+
+            <TextView
+                android:id="@+id/tv_location"
+                style="@style/EditTextType1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="8dp"
+                android:layout_marginStart="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/sw_location" />
+
+            <TextView
                 android:id="@+id/tv_title_write_story"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -88,7 +120,8 @@
                 android:text="@string/title_write_story"
                 style="@style/TitleText"
                 app:layout_constraintStart_toStartOf="@id/tv_title_select_image"
-                app:layout_constraintTop_toBottomOf="@id/btn_camera" />
+                app:layout_constraintTop_toBottomOf="@id/tv_location" />
+
 
             <EditText
                 android:id="@+id/edt_story"
@@ -111,7 +144,6 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.core.widget.NestedScrollView>
-
 
     <include
         android:id="@+id/layout_loading"

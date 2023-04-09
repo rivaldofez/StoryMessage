@@ -1,17 +1,25 @@
 package com.rivaldofez.storymessage.page.addstory
 
+import android.Manifest
 import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.content.Intent.ACTION_GET_CONTENT
+import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.location.Location
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import android.provider.Settings
+import android.util.Log
 import android.view.*
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.getColor
 import androidx.core.content.FileProvider
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
@@ -20,7 +28,10 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.paging.ExperimentalPagingApi
 import com.bumptech.glide.load.resource.bitmap.TransformationUtils
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 import com.google.android.material.snackbar.Snackbar
 import com.rivaldofez.storymessage.R
 import com.rivaldofez.storymessage.util.MediaUtility
@@ -28,18 +39,21 @@ import com.rivaldofez.storymessage.util.MediaUtility.reduceFileImage
 import com.rivaldofez.storymessage.util.MediaUtility.uriToFile
 import com.rivaldofez.storymessage.databinding.FragmentAddStoryBinding
 import com.rivaldofez.storymessage.extension.animateVisibility
+import com.rivaldofez.storymessage.util.LocationUtility
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.File
 import java.io.FileOutputStream
 import java.io.OutputStream
 
+@ExperimentalPagingApi
 @AndroidEntryPoint
 class AddStoryFragment : Fragment() {
 
@@ -51,6 +65,9 @@ class AddStoryFragment : Fragment() {
     private var token: String = ""
 
     private val addStoryViewModel: AddStoryViewModel by viewModels()
+
+    private lateinit var fusedLocationClient: FusedLocationProviderClient
+    private var location: Location? = null
 
     private val launcherCameraIntent = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){ result ->
         if (result.resultCode == RESULT_OK) {
@@ -108,6 +125,87 @@ class AddStoryFragment : Fragment() {
         setUserToken()
         setToolbarActions()
         setActions()
+
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext())
+        binding.swLocation.setOnCheckedChangeListener { _,  isChecked ->
+            if (isChecked) {
+                getLocation()
+                binding.tvLocation.visibility = View.VISIBLE
+            } else {
+                this.location = null
+                binding.tvLocation.text = ""
+                binding.tvLocation.visibility = View.GONE
+            }
+        }
+    }
+
+    private fun getLocation() {
+        if (ContextCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
+            fusedLocationClient.lastLocation.addOnSuccessListener { location ->
+                if (location != null) {
+                    this.location = location
+                    binding.tvLocation.text = LocationUtility.parseAddressLocation(
+                        context = requireContext(),
+                        lat = location.latitude,
+                        lon = location.longitude
+                    )
+                } else {
+                    Toast.makeText(
+                        requireContext(),
+                        "Please allow location permission to use this feature",
+                        Toast.LENGTH_SHORT
+                    ).show()
+
+                    binding.swLocation.isChecked = false
+                }
+            }
+        } else {
+            requestLocationPermissionLauncher.launch(
+                arrayOf(
+                   Manifest.permission.ACCESS_COARSE_LOCATION
+                )
+            )
+        }
+
+    }
+
+    private val requestLocationPermissionLauncher = registerForActivityResult(
+        ActivityResultContracts.RequestMultiplePermissions()
+    ) { permissions ->
+        Log.d("Test", "$permissions")
+        when {
+            permissions[Manifest.permission.ACCESS_COARSE_LOCATION] ?: false -> {
+                getLocation()
+            }
+            else -> {
+                Snackbar
+                    .make(
+                        binding.root,
+                        "Permission Denied, please allow",
+                        Snackbar.LENGTH_SHORT
+                    )
+                    .setActionTextColor(getColor(requireContext(), R.color.white))
+                    .setAction("Change Settings") {
+
+                        // When user not grant permission, user need to activate the permission manually
+                        // Direct user to the application detail setting
+                        Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).also { intent ->
+                            val uri = Uri.fromParts("package", requireActivity().packageName, null)
+                            intent.data = uri
+
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                            startActivity(intent)
+                        }
+                    }
+                    .show()
+
+                binding.swLocation.isChecked = false
+            }
+        }
     }
 
     private fun setUserToken(){
@@ -209,9 +307,17 @@ class AddStoryFragment : Fragment() {
                 requestImageFile
             )
 
+            var lat: RequestBody? = null
+            var lon: RequestBody? = null
+
+            if (location != null) {
+                lat = location?.latitude.toString().toRequestBody("text/plain".toMediaType())
+                lon = location?.longitude.toString().toRequestBody("text/plain".toMediaType())
+            }
+
             viewLifecycleOwner.lifecycleScope.launchWhenStarted {
                 launch {
-                    addStoryViewModel.addStory(token = token, file = imageMultipart, description = description).collect{ response ->
+                    addStoryViewModel.addStory(token = token, file = imageMultipart, description = description, lat = lat, lon = lon).collect{ response ->
                         response.onSuccess {
                             showLoading(isLoading = false)
                             Snackbar.make(

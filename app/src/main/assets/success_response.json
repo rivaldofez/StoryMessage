@@ -1,0 +1,15 @@
+{
+  "error": false,
+  "message": "Stories fetched successfully",
+  "listStory": [
+    {
+      "id": "story-FvU4u0Vp2S3PMsFg",
+      "name": "Rivaldo",
+      "description": "Lorem Ipsum dolor sit amet",
+      "photoUrl": "https://story-api.dicoding.dev/images/stories/photos-1941833678795_dummy-pic.png",
+      "createdAt": "2022-01-08T06:34:18.598Z",
+      "lat": -102.212,
+      "lon": -18.002
+    }
+  ]
+}

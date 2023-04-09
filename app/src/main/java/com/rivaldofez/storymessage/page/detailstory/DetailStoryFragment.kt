@@ -15,9 +15,10 @@ import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import com.rivaldofez.storymessage.R
-import com.rivaldofez.storymessage.data.remote.response.StoryResponse
+import com.rivaldofez.storymessage.data.local.entity.StoryEntity
 import com.rivaldofez.storymessage.databinding.FragmentDetailStoryBinding
 import com.rivaldofez.storymessage.extension.setLocaleDateFormat
+import com.rivaldofez.storymessage.util.wrapEspressoIdlingResource
 
 class DetailStoryFragment : Fragment(){
 
@@ -26,8 +27,9 @@ class DetailStoryFragment : Fragment(){
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        sharedElementEnterTransition = TransitionInflater.from(requireContext()).inflateTransition(android.R.transition.move)
-    }
+        wrapEspressoIdlingResource {
+        sharedElementEnterTransition = TransitionInflater.from(requireContext()).inflateTransition(android.R.transition.explode)
+    }}
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -45,11 +47,13 @@ class DetailStoryFragment : Fragment(){
         requireActivity().supportPostponeEnterTransition()
 
         if(story != null){
-            binding.imgStory.transitionName = "image_${story.id}"
-            binding.tvDate.transitionName = "date_${story.id}"
-            binding.tvDescription.transitionName = "description_${story.id}"
-            binding.tvName.transitionName = "name_${story.id}"
-            binding.toolbarDetailStory.title = getString(R.string.detail_toolbar_title, story.name.lowercase().replaceFirstChar { it.titlecase() })
+            binding.apply {
+                imgStory.transitionName = "image_${story.id}"
+                tvDate.transitionName = "date_${story.id}"
+                tvDescription.transitionName = "description_${story.id}"
+                tvName.transitionName = "name_${story.id}"
+                toolbarDetailStory.title = getString(R.string.detail_toolbar_title, story.name.lowercase().replaceFirstChar { it.titlecase() })
+            }
 
             setStoryToView(story)
             setToolbarAction()
@@ -67,7 +71,7 @@ class DetailStoryFragment : Fragment(){
         }
     }
 
-    private fun setStoryToView(story: StoryResponse){
+    private fun setStoryToView(story: StoryEntity){
         binding.apply {
             tvName.text = story.name
             tvDescription.text = story.description

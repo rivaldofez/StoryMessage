@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
-import com.rivaldofez.storymessage.data.local.AuthenticationLocalDataSource
+import com.rivaldofez.storymessage.data.local.UserDataLocalDataSource
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -23,6 +23,6 @@ class DataStorePreferenceModule {
 
     @Provides
     @Singleton
-    fun provideAuthenticationLocalDataSource(dataStore: DataStore<Preferences>) : AuthenticationLocalDataSource =
-        AuthenticationLocalDataSource(dataStore = dataStore)
+    fun provideAuthenticationLocalDataSource(dataStore: DataStore<Preferences>) : UserDataLocalDataSource =
+        UserDataLocalDataSource(dataStore = dataStore)
 }

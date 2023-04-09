@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/home"
+        android:icon="@drawable/ic_home_24"
+        android:title="@string/home"
+        android:checked="true"
+        android:color="@color/accentColor"/>
+    <item
+        android:id="@+id/maps"
+        android:icon="@drawable/ic_maps_24"
+        android:title="@string/maps"
+        android:color="@color/accentColor"/>
+    <item
+        android:id="@+id/settings"
+        android:icon="@drawable/ic_settings_24"
+        android:title="@string/settings"
+        android:color="@color/accentColor"/>
+
+</menu>

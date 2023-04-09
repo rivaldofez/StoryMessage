@@ -1,6 +1,7 @@
-package com.rivaldofez.storymessage.data.remote
+package com.rivaldofez.storymessage.data
 
-import com.rivaldofez.storymessage.data.local.AuthenticationLocalDataSource
+import com.rivaldofez.storymessage.data.local.UserDataLocalDataSource
+import com.rivaldofez.storymessage.data.remote.ApiService
 import com.rivaldofez.storymessage.data.remote.response.LoginResponse
 import com.rivaldofez.storymessage.data.remote.response.RegisterResponse
 import kotlinx.coroutines.Dispatchers
@@ -9,9 +10,9 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject
 
-class AuthenticationRepository @Inject constructor(
+class UserDataRepository @Inject constructor(
     private val apiService: ApiService,
-    private val authenticationLocalDataSource: AuthenticationLocalDataSource) {
+    private val userDataLocalDataSource: UserDataLocalDataSource) {
 
     suspend fun userLogin(email: String, password: String): Flow<Result<LoginResponse>> = flow {
         try {
@@ -23,10 +24,9 @@ class AuthenticationRepository @Inject constructor(
         }
     }.flowOn(Dispatchers.IO)
 
-    suspend fun userRegister(email: String, password: String, name: String
-    ): Flow<Result<RegisterResponse>> = flow {
+    suspend fun userRegister(name: String, email: String, password: String): Flow<Result<RegisterResponse>> = flow {
         try {
-            val response = apiService.userRegister(email = email, password = password, name = name)
+            val response = apiService.userRegister(name = name, email = email, password = password)
             emit(Result.success(response))
         } catch (e: Exception){
             e.printStackTrace()
@@ -35,12 +35,19 @@ class AuthenticationRepository @Inject constructor(
     }.flowOn(Dispatchers.IO)
 
     suspend fun saveAuthenticationToken(token: String){
-        authenticationLocalDataSource.saveAuthenticationToken(token)
+        userDataLocalDataSource.saveAuthenticationToken(token)
     }
 
     suspend fun removeAuthenticationToken(){
-        authenticationLocalDataSource.removeAuthenticationToken()
+        userDataLocalDataSource.removeAuthenticationToken()
     }
 
-    fun getAuthenticationToken(): Flow<String?> = authenticationLocalDataSource.getAuthenticationToken()
+    suspend fun saveThemeSetting(themeId: Int){
+        userDataLocalDataSource.saveThemeSetting(themeId = themeId)
+    }
+
+    fun getAuthenticationToken(): Flow<String?> = userDataLocalDataSource.getAuthenticationToken()
+
+    fun getThemeSetting(): Flow<String?> = userDataLocalDataSource.getThemeSetting()
+
 }

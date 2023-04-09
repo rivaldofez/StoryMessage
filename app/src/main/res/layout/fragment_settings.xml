@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bgColor"
+    tools:context=".page.settings.SettingsFragment">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_settings"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_regular"
+            android:text="@string/settings"
+            android:textColor="@color/textColor"
+            android:textSize="28sp"
+            android:textStyle="bold" />
+    </androidx.appcompat.widget.Toolbar>
+
+    <TextView
+        android:id="@+id/btn_language"
+        style="@style/TitleText"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_gravity="center_vertical"
+        android:clickable="true"
+        android:drawablePadding="16dp"
+        android:focusable="true"
+        android:foreground="?attr/selectableItemBackground"
+        android:padding="16dp"
+        android:gravity="center_vertical"
+        android:text="@string/title_menu_language"
+        app:drawableStartCompat="@drawable/ic_language_24"
+        app:drawableTint="@color/primaryColor"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_settings" />
+
+
+    <ImageView
+        android:id="@+id/iv_icon_theme"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_dark_mode_24"
+        app:tint="@color/primaryColor"
+        android:paddingVertical="16dp"
+        android:paddingStart="16dp"
+        android:contentDescription="@string/icon_theme"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_language"
+        />
+
+    <androidx.appcompat.widget.AppCompatSpinner
+        android:id="@+id/spn_theme"
+        style="@style/TitleText"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:padding="0dp"
+        android:contentDescription="@string/cd_spinner_theme"
+        android:popupBackground="@color/lightBgColor"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/iv_icon_theme"
+        app:layout_constraintTop_toBottomOf="@+id/btn_language" />
+
+    <TextView
+        android:id="@+id/btn_logout"
+        style="@style/TitleText"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_gravity="center_vertical"
+        android:clickable="true"
+        android:foreground="?attr/selectableItemBackground"
+        android:drawablePadding="16dp"
+        android:focusable="true"
+        android:padding="16dp"
+        android:gravity="center_vertical"
+        android:text="@string/title_menu_logout"
+        app:drawableStartCompat="@drawable/ic_logout_24"
+        app:drawableTint="@color/primaryColor"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spn_theme" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
