@@ -47,11 +47,13 @@ class DetailStoryFragment : Fragment(){
         requireActivity().supportPostponeEnterTransition()
 
         if(story != null){
-            binding.imgStory.transitionName = "image_${story.id}"
-            binding.tvDate.transitionName = "date_${story.id}"
-            binding.tvDescription.transitionName = "description_${story.id}"
-            binding.tvName.transitionName = "name_${story.id}"
-            binding.toolbarDetailStory.title = getString(R.string.detail_toolbar_title, story.name.lowercase().replaceFirstChar { it.titlecase() })
+            binding.apply {
+                imgStory.transitionName = "image_${story.id}"
+                tvDate.transitionName = "date_${story.id}"
+                tvDescription.transitionName = "description_${story.id}"
+                tvName.transitionName = "name_${story.id}"
+                toolbarDetailStory.title = getString(R.string.detail_toolbar_title, story.name.lowercase().replaceFirstChar { it.titlecase() })
+            }
 
             setStoryToView(story)
             setToolbarAction()
