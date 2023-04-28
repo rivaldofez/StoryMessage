@@ -70,6 +70,9 @@ This apps built with
 
 * [Android Studio](https://developer.android.com/studio)
 * [Kotlin](https://kotlinlang.org/)
+* [Retrofit](https://square.github.io/retrofit/)
+* [Room](https://developer.android.com/jetpack/androidx/releases/room)
+* [Paging](https://developer.android.com/topic/libraries/architecture/paging/v3-overview)
 * [Dagger Hilt](https://dagger.dev/hilt/)
 * [Lottie](https://lottiefiles.com/)
 * MVVM Architecture Pattern
